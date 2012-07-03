@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="Chess.Web.Services.ChessEngine" CodeBehind="ChessEngine.svc.cs" %>

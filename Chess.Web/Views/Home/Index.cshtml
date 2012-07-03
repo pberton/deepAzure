@@ -1,9 +1,21 @@
 ﻿@{
     ViewBag.Title = "Index";
 }
-
-<h2>Index</h2>
-
+<h2>
+    Index</h2>
 <p>
-@Html.ActionLink("Chess game", "Index",  "Chess")
+    @Html.ActionLink("Chess game", "Index", "Chess")
 </p>
+<script type="text/javascript">
+     $(function () {
+         $.ajax({
+             url: "/Services/ChessEngine.svc/DoWork",
+             type: "POST",
+             contentType: "application/json",
+             data: JSON.stringify("in"),
+             dataType: "html",
+             success: function (data) { alert(data); },
+             error: function(e) { alert(e.statusText); }
+         });
+     });
+</script>
