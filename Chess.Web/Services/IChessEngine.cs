@@ -12,10 +12,7 @@ namespace Chess.Web.Services
     [ServiceContract]
     public interface IChessEngine
     {
-        [OperationContract, WebInvoke(Method="POST")]
-        string DoWork(string @in);
-
-        [OperationContract, WebGet]
-        string HelloWorld();
+        [OperationContract, WebInvoke(Method = "POST")]
+        bool IsValidMove(MoveRequest request);
     }
 }

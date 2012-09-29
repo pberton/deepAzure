@@ -95,3 +95,4 @@ Board.prototype.getSelectedSquare = (function (x, y) {
     }
     return null;
 })
+

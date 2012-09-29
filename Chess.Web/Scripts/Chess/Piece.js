@@ -8,6 +8,10 @@ function Piece(player, type) {
     this.selected = false;
 }
 
+Piece.prototype.getPlayer = (function () {
+    return this.player;
+})
+
 // K for king, Q for queen, R for rook, B for bishop, and N for knight, "" for pawn
 Piece.prototype.getType = (function () {
     return this.type;

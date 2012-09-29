@@ -66,17 +66,14 @@ Player.prototype.setPiece = (function (type, position) {
 })
 
 Player.prototype.move = (function (piece, square) {
-    if (square.getPiece() == null) {
-        var originalSquare = piece.getSquare();
-        piece.setSquare(square);
-        originalSquare.setSelected(false);
-        piece.setSelected(false);
+    var originalSquare = piece.getSquare();
+    piece.setSquare(square);
+    originalSquare.setSelected(false);
+    piece.setSelected(false);
 
-        this.board.drawSquare(originalSquare);
-        this.board.drawSquare(piece.getSquare());
-        return true;
-    }
-    return false;
+    this.board.drawSquare(originalSquare);
+    this.board.drawSquare(piece.getSquare());
+    return true;
 })
 
 Player.prototype.getSelectedPiece = (function () {
@@ -105,5 +102,13 @@ Player.prototype.selectPiece = (function (x, y) {
     }
 })
 
+Player.prototype.getPiecesAsStrings = (function () {
+    var piecesAsString = [];
+    $.each(this.pieces, function (index, piece) {
+        var str = piece.getType() + piece.getPosition();
+        piecesAsString.push(str);
+    });
+    return piecesAsString;
+})
 
 
