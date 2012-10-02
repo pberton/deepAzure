@@ -10,31 +10,45 @@ namespace Chess.Web.Models.Chess
         public PieceColor Color { get; set; }
         public BoardSquare Square { get; set; }
         public Board Board { get; set; }
-        protected  List<int> ValidMoves = new List<int>();
+        protected List<BoardSquare> ValidMoves = new List<BoardSquare>();
 
         public static PieceBase CreatePiece(char type)
         {
             switch (type)
             {
-                case 'R':
+                case 'R': // Rook
                     return new PieceRook();
-                case 'N':
+                case 'N': // Knight
                     return new PieceKnight();
-                case 'B':
+                case 'B': // Bishop
                     return new PieceBishop();
-                case 'K':
+                case 'K': // King
                     return new PieceKing();
-                case 'Q':
+                case 'Q': // Queen
                     return new PieceQueen();
-                default:
+                default: // Pawn
                     return new PiecePawn();
             }
         }
 
-        public bool IsValidMove(char x, char y)
+        public bool IsValidMove(string coord)
         {
-            int destIndex = Board.GetIndexFromCoordinate(x, y);
-            return (ValidMoves.Contains(destIndex));
+            return IsValidMove(coord[0], coord[1]);
+        }
+
+        private bool IsValidMove(char x, char y)
+        {
+            return IsValidMove(this.Board[x, y]);
+        }
+
+        public bool IsValidMove(BoardSquare destSquare)
+        {
+            return (ValidMoves.Contains(destSquare));
+        }
+
+        public int GetValidMovesCount()
+        {
+            return this.ValidMoves.Count;
         }
 
         public abstract void CalculateValidMoves();

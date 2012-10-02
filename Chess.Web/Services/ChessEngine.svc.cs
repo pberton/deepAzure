@@ -14,7 +14,7 @@ namespace Chess.Web.Services
         public bool IsValidMove(MoveRequest request)
         {
             IEngine engine = new Engine();
-            engine.LoadPiecesFromArray(request.WhitePieces, request.BlackPieces);
+            engine.LoadBoardFromArray(request.WhitePieces, request.BlackPieces);
 
             return engine.IsValidMove(request.From, request.To);
         }

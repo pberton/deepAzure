@@ -9,14 +9,36 @@ namespace Chess.Web.Models.Chess
     {
         public override void CalculateValidMoves()
         {
-            int nextSquareIndex = 0;
-            if (this.Color ==  PieceColor.White)
-               nextSquareIndex = this.Square.Index - 8;
-            else
-               nextSquareIndex = this.Square.Index + 8;
+            this.ValidMoves.Clear();
 
-            if (this.Board[nextSquareIndex].Piece == null)
-                this.ValidMoves.Add(nextSquareIndex);
+            int nextSquareIndex = -1;
+            int index =  this.Square.Index;
+
+            if (this.Color == PieceColor.White)
+            {
+                nextSquareIndex = index - 8;
+                if (nextSquareIndex > -1 && this.Board[nextSquareIndex].Piece == null)
+                    this.ValidMoves.Add(this.Board[nextSquareIndex]);
+                if (index > 47 && index < 56)
+                {
+                    nextSquareIndex -= 8;
+                    if (this.Board[nextSquareIndex].Piece == null)
+                        this.ValidMoves.Add(this.Board[nextSquareIndex]);
+                }
+            }
+            else
+            {
+                nextSquareIndex = index + 8;
+                if (nextSquareIndex < 64 && this.Board[nextSquareIndex].Piece == null)
+                    this.ValidMoves.Add(this.Board[nextSquareIndex]);
+                if (index > 7 && index < 16)
+                {
+                    nextSquareIndex += 8;
+                    if (this.Board[nextSquareIndex].Piece == null)
+                        this.ValidMoves.Add(this.Board[nextSquareIndex]);
+                }
+            }
         }
+
     }
 }

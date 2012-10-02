@@ -131,6 +131,10 @@
     <Content Include="Content\Site.css" />
     <Content Include="readme.html" />
     <Content Include="Scripts\Chess\Board.js" />
+    <TypeScriptCompile Include="Scripts\Chess\file1.ts" />
+    <Content Include="Scripts\Chess\file1.js">
+      <DependentUpon>file1.ts</DependentUpon>
+    </Content>
     <Content Include="Scripts\Chess\Game.js" />
     <Content Include="Scripts\Chess\Piece.js" />
     <Content Include="Scripts\Chess\Player.js" />

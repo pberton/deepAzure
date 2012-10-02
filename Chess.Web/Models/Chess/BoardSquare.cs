@@ -16,5 +16,18 @@ namespace Chess.Web.Models.Chess
             this.Index = index;
             this.Board = board;
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is BoardSquare)
+                return this.Index.Equals(((BoardSquare)obj).Index);
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Index.GetHashCode();
+        }
+
     }
 }

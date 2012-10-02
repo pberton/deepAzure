@@ -14,26 +14,37 @@ namespace Chess.Web.Models.Chess
         
         }
 
-        public void LoadPiecesFromArray(string[] whitePieces, string[] blackPieces)
+        public Board Board
+        {
+            get { return board; }
+        }
+
+        public void LoadBoardFromArray(string[] whitePieces, string[] blackPieces)
         {
             char type, x, y;
 
-            foreach (string pieceText in whitePieces)
+            if (whitePieces != null)
             {
-                ReadPiece(pieceText, out type, out x, out y);
-                board.LoadPiece(x, y, type, PieceColor.White);
+                foreach (string pieceText in whitePieces)
+                {
+                    ReadPieceData(pieceText, out type, out x, out y);
+                    board.LoadPiece(x, y, type, PieceColor.White);
+                }
             }
 
-            foreach (string pieceText in blackPieces)
+            if (blackPieces != null)
             {
-                ReadPiece(pieceText, out type, out x, out y);
-                board.LoadPiece(x, y, type, PieceColor.Black);
+                foreach (string pieceText in blackPieces)
+                {
+                    ReadPieceData(pieceText, out type, out x, out y);
+                    board.LoadPiece(x, y, type, PieceColor.Black);
+                }
             }
 
             board.CalculateValidMoves();
         }
 
-        private void ReadPiece(string pieceText, out char type, out char x, out char y)
+        private void ReadPieceData(string pieceText, out char type, out char x, out char y)
         {
             if (pieceText.Length == 2)
             {
@@ -54,7 +65,8 @@ namespace Chess.Web.Models.Chess
             var piece = board.GetPieceFrom(from[0], from [1]);
             if (piece != null)
             {
-                return piece.IsValidMove(to[0], to[1]);
+                var destSquare = this.board[to[0], to[1]];
+                return piece.IsValidMove(destSquare);
             }
             else
             {
