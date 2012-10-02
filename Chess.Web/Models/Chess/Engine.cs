@@ -62,7 +62,7 @@ namespace Chess.Web.Models.Chess
 
         public bool IsValidMove(string from, string to)
         {
-            var piece = board.GetPieceFrom(from[0], from [1]);
+            var piece = board[from[0], from[1]].Piece;
             if (piece != null)
             {
                 var destSquare = this.board[to[0], to[1]];

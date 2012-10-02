@@ -7,26 +7,33 @@ namespace Chess.Web.Models.Chess
 {
     public class BoardSquare
     {
-        public int Index { get; private set; }
+        public char X { get; private set; }
+        public char Y { get; private set; }
         public PieceBase Piece { get; set; }
         public Board Board { get; private set; }
 
-        public BoardSquare(Board board, int index)
+        public BoardSquare(Board board, char x, char y)
         {
-            this.Index = index;
+            this.X = x;
+            this.Y = y;
             this.Board = board;
         }
 
         public override bool Equals(object obj)
         {
             if (obj is BoardSquare)
-                return this.Index.Equals(((BoardSquare)obj).Index);
+                return this.GetHashCode().Equals(((BoardSquare)obj).GetHashCode());
             return false;
         }
 
         public override int GetHashCode()
         {
-            return this.Index.GetHashCode();
+            return BoardSquare.GetHashCode(this.X,this.Y);
+        }
+
+        public static int GetHashCode(char x, char y)
+        {
+            return x * 100 + y;
         }
 
     }

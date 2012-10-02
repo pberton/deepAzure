@@ -33,7 +33,7 @@ namespace Chess.Web.Models.Chess
 
         public bool IsValidMove(string coord)
         {
-            return IsValidMove(coord[0], coord[1]);
+            return IsValidMove(this.Board[coord]);
         }
 
         private bool IsValidMove(char x, char y)
@@ -49,6 +49,11 @@ namespace Chess.Web.Models.Chess
         public int GetValidMovesCount()
         {
             return this.ValidMoves.Count;
+        }
+
+        protected void AddValidMove(char x, char y)
+        {
+            this.ValidMoves.Add(this.Board[x,y]);
         }
 
         public abstract void CalculateValidMoves();

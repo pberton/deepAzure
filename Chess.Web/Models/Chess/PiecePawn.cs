@@ -11,31 +11,32 @@ namespace Chess.Web.Models.Chess
         {
             this.ValidMoves.Clear();
 
-            int nextSquareIndex = -1;
-            int index =  this.Square.Index;
+            char x =  this.Square.X;
+            char y = this.Square.Y;
+            char nextSquareIndex = y;
 
             if (this.Color == PieceColor.White)
             {
-                nextSquareIndex = index - 8;
-                if (nextSquareIndex > -1 && this.Board[nextSquareIndex].Piece == null)
-                    this.ValidMoves.Add(this.Board[nextSquareIndex]);
-                if (index > 47 && index < 56)
+                nextSquareIndex ++;
+                if (this.Board.IsEmptySquare(x, nextSquareIndex))
+                    this.AddValidMove(x, nextSquareIndex);
+                if (y == '2')
                 {
-                    nextSquareIndex -= 8;
-                    if (this.Board[nextSquareIndex].Piece == null)
-                        this.ValidMoves.Add(this.Board[nextSquareIndex]);
+                    nextSquareIndex++;
+                    if (this.Board.IsEmptySquare(x, nextSquareIndex))
+                        this.AddValidMove(x, nextSquareIndex);
                 }
             }
             else
             {
-                nextSquareIndex = index + 8;
-                if (nextSquareIndex < 64 && this.Board[nextSquareIndex].Piece == null)
-                    this.ValidMoves.Add(this.Board[nextSquareIndex]);
-                if (index > 7 && index < 16)
+                nextSquareIndex -= y;
+                if (this.Board.IsEmptySquare(x, nextSquareIndex))
+                    this.AddValidMove(x, nextSquareIndex);
+                if (y == '7')
                 {
-                    nextSquareIndex += 8;
-                    if (this.Board[nextSquareIndex].Piece == null)
-                        this.ValidMoves.Add(this.Board[nextSquareIndex]);
+                    nextSquareIndex--;
+                    if (this.Board.IsEmptySquare(x, nextSquareIndex))
+                        this.AddValidMove(x, nextSquareIndex);
                 }
             }
         }
