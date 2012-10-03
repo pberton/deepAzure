@@ -12,22 +12,22 @@ namespace Chess.Web.Models.Chess
         public Board Board { get; set; }
         protected List<BoardSquare> ValidMoves = new List<BoardSquare>();
 
-        public static PieceBase CreatePiece(char type)
+        public static PieceBase CreatePiece(char type, PieceColor color)
         {
             switch (type)
             {
                 case 'R': // Rook
-                    return new PieceRook();
+                    return new PieceRook(color);
                 case 'N': // Knight
-                    return new PieceKnight();
+                    return new PieceKnight(color);
                 case 'B': // Bishop
-                    return new PieceBishop();
+                    return new PieceBishop(color);
                 case 'K': // King
-                    return new PieceKing();
+                    return new PieceKing(color);
                 case 'Q': // Queen
-                    return new PieceQueen();
+                    return new PieceQueen(color);
                 default: // Pawn
-                    return new PiecePawn();
+                    return new PiecePawn(color);
             }
         }
 
@@ -59,9 +59,4 @@ namespace Chess.Web.Models.Chess
         public abstract void CalculateValidMoves();
     }
 
-    public enum PieceColor
-    {
-        White = 0,
-        Black = 1
-    }
 }

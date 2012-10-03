@@ -34,20 +34,19 @@ namespace Chess.Web.Models.Chess
 
         public void LoadPiece(char x, char y, char type, PieceColor color)
         {
-            var piece = PieceBase.CreatePiece(type);
-            LoadPiece(x, y, piece, color);
+            var piece = PieceBase.CreatePiece(type, color);
+            LoadPiece(x, y, piece);
         }
 
-        public void LoadPiece(string coord, PieceBase piece, PieceColor color)
+        public void LoadPiece(string coord, PieceBase piece)
         {
-            LoadPiece(coord[0], coord[1], piece, color);
+            LoadPiece(coord[0], coord[1], piece);
         }
 
-        public void LoadPiece(char x, char y, PieceBase piece, PieceColor color)
+        public void LoadPiece(char x, char y, PieceBase piece)
         {
             var square = this[x, y];
 
-            piece.Color = color;
             piece.Square = square;
             piece.Board = this;
 
@@ -93,6 +92,17 @@ namespace Chess.Web.Models.Chess
         private static bool IsInRange(char x, char y)
         {
             return x >= 'a' && x <= 'h' && y >= '1' && y <= '8';
+        }
+
+        public bool IsOccupiedSquare(char x, char y, PieceColor color)
+        {
+            if (Board.IsInRange(x, y))
+            {
+                var piece = this[x, y].Piece;
+                if (piece != null && piece.Color == color)
+                    return true;
+            }
+            return false;
         }
     }
 }

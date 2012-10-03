@@ -114,6 +114,7 @@
     <Compile Include="Models\Chess\IEngine.cs" />
     <Compile Include="Models\Chess\PieceBase.cs" />
     <Compile Include="Models\Chess\PieceBishop.cs" />
+    <Compile Include="Models\Chess\PieceColor.cs" />
     <Compile Include="Models\Chess\PieceKing.cs" />
     <Compile Include="Models\Chess\PieceKnight.cs" />
     <Compile Include="Models\Chess\PiecePawn.cs" />

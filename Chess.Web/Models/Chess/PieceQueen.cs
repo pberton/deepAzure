@@ -11,5 +11,11 @@ namespace Chess.Web.Models.Chess
         {
 
         }
+
+        public PieceQueen(PieceColor color)
+        {
+            // TODO: Complete member initialization
+            this.Color = color;
+        }
     }
 }

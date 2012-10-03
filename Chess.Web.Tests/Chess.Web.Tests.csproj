@@ -52,7 +52,8 @@
   <ItemGroup>
     <Compile Include="BoardTests.cs" />
     <Compile Include="EngineTests.cs" />
-    <Compile Include="PieceTests.cs" />
+    <Compile Include="PiecePawnTests.cs" />
+    <Compile Include="PieceRookTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
