@@ -51,6 +51,8 @@
   </Choose>
   <ItemGroup>
     <Compile Include="BoardTests.cs" />
+    <Compile Include="PieceQueenTest.cs" />
+    <Compile Include="PieceBishopTest.cs" />
     <Compile Include="EngineTests.cs" />
     <Compile Include="PiecePawnTests.cs" />
     <Compile Include="PieceRookTest.cs" />

@@ -17,17 +17,12 @@ namespace Chess.Web.Tests
         {
             Board board = new Board();
             Assert.IsNotNull(board);
-        }
 
-        [TestMethod]
-        public void GetIndexFromCoordinateTest()
-        {
-            Board engine = new Board();
-            Assert.IsNotNull(engine['a', '8']);
-            Assert.IsNotNull(engine['a', '1']);
-            Assert.IsNotNull(engine['h', '8']);
-            Assert.IsNotNull(engine["h1"]);
-            Assert.IsNotNull(engine['d', '5']);
+            Assert.IsNotNull(board['a', '8']);
+            Assert.IsNotNull(board['a', '1']);
+            Assert.IsNotNull(board['h', '8']);
+            Assert.IsNotNull(board["h1"]);
+            Assert.IsNotNull(board['d', '5']);
         }
     }
 }

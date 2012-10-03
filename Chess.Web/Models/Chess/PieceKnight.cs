@@ -7,15 +7,15 @@ namespace Chess.Web.Models.Chess
 {
     public class PieceKnight : PieceBase
     {
-        public override void CalculateValidMoves()
-        {
-
-        }
 
         public PieceKnight(PieceColor color)
         {
-            // TODO: Complete member initialization
             this.Color = color;
+        }
+
+        public override void CalculateValidMoves()
+        {
+
         }
     }
 }

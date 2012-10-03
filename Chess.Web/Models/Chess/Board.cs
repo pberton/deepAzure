@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace Chess.Web.Models.Chess
@@ -28,6 +29,23 @@ namespace Chess.Web.Models.Chess
                 {
                     BoardSquare square = new BoardSquare(this, x, y);
                     squares.Add(square.GetHashCode(), square);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Lists all pieces on the board
+        /// </summary>
+        public IEnumerable<PieceBase> Pieces
+        {
+            get
+            {
+                foreach (var square in squares.Values)
+                {
+                    if (square.Piece != null)
+                    {
+                        yield return square.Piece;
+                    }
                 }
             }
         }
@@ -65,12 +83,10 @@ namespace Chess.Web.Models.Chess
 
         public void CalculateValidMoves()
         {
-            foreach (var square in squares.Values)
+            // TODO: Parallel.ForEach<PieceBase>(this.Pieces, p => p.CalculateValidMoves());
+            foreach (PieceBase piece in this.Pieces)
             {
-                if (square.Piece != null)
-                {
-                    square.Piece.CalculateValidMoves();
-                }
+                piece.CalculateValidMoves();
             }
         }
 

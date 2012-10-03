@@ -54,7 +54,6 @@ namespace Chess.Web.Models.Chess
                     this.AddValidMove(x,y);
                 return false;
             }
-
         }
     }
 }
