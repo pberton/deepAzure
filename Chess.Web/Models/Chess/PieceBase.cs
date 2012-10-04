@@ -57,6 +57,21 @@ namespace Chess.Web.Models.Chess
         }
 
         public abstract void CalculateValidMoves();
+
+        protected bool ReadSquareMove(char x, char y)
+        {
+            if (this.Board.IsEmptySquare(x, y))
+            {
+                this.AddValidMove(x, y);
+                return true;
+            }
+            else
+            {
+                if (this.Board.IsOccupiedSquare(x, y, this.Color.Opposite()))
+                    this.AddValidMove(x, y);
+                return false;
+            }
+        }
     }
 
 }

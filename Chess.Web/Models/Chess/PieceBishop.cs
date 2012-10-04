@@ -20,7 +20,7 @@ namespace Chess.Web.Models.Chess
             {
                 char x = (char)(this.Square.X + i);
                 char y = (char)(this.Square.Y + i);
-                if (!ReadNextSquare(x, y))
+                if (!ReadSquareMove(x, y))
                     break;
             }
 
@@ -28,7 +28,7 @@ namespace Chess.Web.Models.Chess
             {
                 char x = (char)(this.Square.X + i);
                 char y = (char)(this.Square.Y - i);
-                if (!ReadNextSquare(x, y))
+                if (!ReadSquareMove(x, y))
                     break;
             }
 
@@ -36,7 +36,7 @@ namespace Chess.Web.Models.Chess
             {
                 char x = (char)(this.Square.X - i);
                 char y = (char)(this.Square.Y - i);
-                if (!ReadNextSquare(x, y))
+                if (!ReadSquareMove(x, y))
                     break;
             }
 
@@ -44,27 +44,9 @@ namespace Chess.Web.Models.Chess
             {
                 char x = (char)(this.Square.X - i);
                 char y = (char)(this.Square.Y + i);
-                if (!ReadNextSquare(x, y))
+                if (!ReadSquareMove(x, y))
                     break;
             }
         }
-
-
-        private bool ReadNextSquare(char x, char y)
-        {
-            if (this.Board.IsEmptySquare(x, y))
-            {
-                this.AddValidMove(x, y);
-                return true;
-            }
-            else
-            {
-                if (this.Board.IsOccupiedSquare(x, y, this.Color.Opposite()))
-                    this.AddValidMove(x, y);
-                return false;
-            }
-
-        }
-
     }
 }
