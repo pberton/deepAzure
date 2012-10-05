@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Chess.Web.Models.Chess
+namespace Chess.Engine
 {
-    public class Engine: IEngine
+    public class BasicEngine: IEngine
     {
         Board board = new Board();
 
-        public Engine()
+        public BasicEngine()
         { 
         
         }
@@ -66,12 +66,30 @@ namespace Chess.Web.Models.Chess
             if (piece != null)
             {
                 var destSquare = this.board[to[0], to[1]];
-                return piece.IsValidMove(destSquare);
+                return board.IsValidMove(piece, destSquare);
             }
             else
             {
                 return false;
             }
+        }
+
+        public bool Move(string from, string to)
+        {
+            var piece = board[from[0], from[1]].Piece;
+            if (piece != null)
+            {
+                var destSquare = this.board[to[0], to[1]];
+                if (board.IsValidMove(piece, destSquare))
+                {
+                    piece.Square.Piece = null;
+                    piece.Square = destSquare;
+                    destSquare.Piece.Board = null;
+                    destSquare.Piece = piece;
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

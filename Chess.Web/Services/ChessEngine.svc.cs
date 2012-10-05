@@ -1,4 +1,4 @@
-﻿using Chess.Web.Models.Chess;
+﻿using Chess.Engine;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +13,7 @@ namespace Chess.Web.Services
     {
         public bool IsValidMove(MoveRequest request)
         {
-            IEngine engine = new Engine();
+            IEngine engine = new BasicEngine();
             engine.LoadBoardFromArray(request.WhitePieces, request.BlackPieces);
 
             return engine.IsValidMove(request.From, request.To);

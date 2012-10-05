@@ -108,18 +108,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Chess\Board.cs" />
-    <Compile Include="Models\Chess\BoardSquare.cs" />
-    <Compile Include="Models\Chess\Engine.cs" />
-    <Compile Include="Models\Chess\IEngine.cs" />
-    <Compile Include="Models\Chess\PieceBase.cs" />
-    <Compile Include="Models\Chess\PieceBishop.cs" />
-    <Compile Include="Models\Chess\PieceColor.cs" />
-    <Compile Include="Models\Chess\PieceKing.cs" />
-    <Compile Include="Models\Chess\PieceKnight.cs" />
-    <Compile Include="Models\Chess\PiecePawn.cs" />
-    <Compile Include="Models\Chess\PieceQueen.cs" />
-    <Compile Include="Models\Chess\PieceRook.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IChessEngine.cs" />
     <Compile Include="Services\ChessEngine.svc.cs">
@@ -160,6 +148,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\Index.cshtml" />
@@ -173,6 +162,12 @@
   <ItemGroup>
     <None Include="Properties\PublishProfiles\deepAzureDeployment.pubxml" />
     <Content Include="Services\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Chess.Engine\Chess.Engine.csproj">
+      <Project>{3fb75673-99f4-491f-a537-2bccd9421590}</Project>
+      <Name>Chess.Engine</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,23 +1,23 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Chess.Web.Models.Chess;
+using Chess.Engine;
 
 namespace Chess.Web.Tests
 {
     [TestClass]
-    public class EngineTests
+    public class BasicEngineTests
     {
         [TestMethod]
-        public void EngineConstructorTest()
+        public void BasicEngineConstructorTest()
         {
-            IEngine engine = new Engine();
+            IEngine engine = new BasicEngine();
             Assert.IsNotNull(engine);
         }
 
         [TestMethod]
-        public void EngineLoadPiecesTest()
+        public void BasicEngineLoadPiecesTest()
         {
-            IEngine engine = new Engine();
+            IEngine engine = new BasicEngine();
 
             engine.LoadBoardFromArray(new string[] { "a2", "Rb2", "Nc2", "Bd2", "Qe2", "Kf2" }, null);
             AssertPieceLoaded(engine, "a2", typeof(PiecePawn), PieceColor.White);

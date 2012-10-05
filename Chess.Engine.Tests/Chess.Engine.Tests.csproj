@@ -3,12 +3,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{31795751-43E4-4CEB-BCFA-FA8506D977AD}</ProjectGuid>
+    <ProjectGuid>{C08494B3-2793-4DBF-AF02-3EB745E0185E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Chess.Web.Tests</RootNamespace>
-    <AssemblyName>Chess.Web.Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <RootNamespace>Chess.Engine.Tests</RootNamespace>
+    <AssemblyName>Chess.Engine.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -16,6 +16,7 @@
     <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
     <IsCodedUITest>False</IsCodedUITest>
     <TestProjectType>UnitTest</TestProjectType>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -50,12 +51,20 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="BoardTests.cs" />
+    <Compile Include="BasicEngineTests.cs" />
+    <Compile Include="PieceBishopTest.cs" />
+    <Compile Include="PieceKingTest.cs" />
+    <Compile Include="PieceKnightTest.cs" />
+    <Compile Include="PiecePawnTests.cs" />
+    <Compile Include="PieceQueenTest.cs" />
+    <Compile Include="PieceRookTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Chess.Web\Chess.Web.csproj">
-      <Project>{32c6cb18-049d-4a83-890e-fe6402813916}</Project>
-      <Name>Chess.Web</Name>
+    <ProjectReference Include="..\Chess.Engine\Chess.Engine.csproj">
+      <Project>{3fb75673-99f4-491f-a537-2bccd9421590}</Project>
+      <Name>Chess.Engine</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

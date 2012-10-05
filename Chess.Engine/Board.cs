@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace Chess.Web.Models.Chess
+namespace Chess.Engine
 {
     /// <summary>
     /// Board representation
@@ -119,6 +119,11 @@ namespace Chess.Web.Models.Chess
                     return true;
             }
             return false;
+        }
+
+        public bool IsValidMove(PieceBase piece, BoardSquare destSquare)
+        {
+            return piece.IsValidMove(destSquare);
         }
     }
 }

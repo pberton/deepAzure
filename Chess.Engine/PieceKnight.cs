@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Chess.Web.Models.Chess
+namespace Chess.Engine
 {
     public class PieceKnight : PieceBase
     {

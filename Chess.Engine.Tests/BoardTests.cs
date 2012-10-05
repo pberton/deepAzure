@@ -2,7 +2,7 @@
 using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Chess.Web.Models.Chess;
+using Chess.Engine;
 
 namespace Chess.Web.Tests
 {
