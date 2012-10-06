@@ -16,18 +16,13 @@
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
-    <OldToolsVersion>4.0</OldToolsVersion>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <TargetFrameworkProfile />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -51,6 +46,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
@@ -121,14 +119,34 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="readme.html" />
-    <Content Include="Scripts\Chess\Board.js" />
-    <Content Include="Scripts\Chess\Game.js" />
-    <Content Include="Scripts\Chess\Piece.js" />
-    <Content Include="Scripts\Chess\Player.js" />
-    <Content Include="Scripts\Chess\BoardSquare.js" />
+    <TypeScriptCompile Include="Scripts\Chess\Board.ts" />
+    <Content Include="Scripts\Chess\Board.js">
+      <DependentUpon>Board.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="Scripts\Chess\BoardSquare.ts" />
+    <Content Include="Scripts\Chess\BoardSquare.js">
+      <DependentUpon>BoardSquare.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="Scripts\Chess\Game.ts" />
+    <Content Include="Scripts\Chess\Game.js">
+      <DependentUpon>Game.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="Scripts\Chess\Index.ts" />
+    <Content Include="Scripts\Chess\Index.js">
+      <DependentUpon>Index.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="Scripts\Chess\Piece.ts" />
+    <Content Include="Scripts\Chess\Piece.js">
+      <DependentUpon>Piece.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="Scripts\Chess\Player.ts" />
+    <Content Include="Scripts\Chess\Player.js">
+      <DependentUpon>Player.ts</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
+    <Content Include="Scripts\jquery.d.ts" />
     <Content Include="Services\ChessEngine.svc" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -174,12 +192,11 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
+    <Exec Command="&quot;$(PROGRAMFILES)\Microsoft SDKs\TypeScript\0.8.0.0\tsc&quot; @(TypeScriptCompile ->'&quot;%(fullpath)&quot;', ' ')" />
   </Target>
   <Target Name="AfterBuild">
-  </Target> -->
+  </Target>
   <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
     <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
   </Target>
@@ -202,4 +219,8 @@
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
 </Project>

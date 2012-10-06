@@ -1,81 +1,89 @@
-var Piece = (function () {
-    function Piece(player, type) {
+///<reference path='Board.ts' />
+///<reference path='Player.ts' />
+///<reference path='BoardSquare.ts' />
+
+class Piece {
+    static WhiteColor = "#FFFFFF";
+    static BlackColor = "#000000";
+
+    private player: Player;
+    private type: string;
+    private square: BoardSquare;
+    private selected: bool;
+
+    constructor (player: Player, type: string) {
         this.player = player;
         this.type = type;
         this.square = null;
         this.selected = false;
     }
-    Piece.WhiteColor = "#FFFFFF";
-    Piece.BlackColor = "#000000";
-    Piece.prototype.getPlayer = function () {
+
+    getPlayer(): Player {
         return this.player;
-    };
-    Piece.prototype.getType = function () {
+    }
+
+    // K for king, Q for queen, R for rook, B for bishop, and N for knight, "" for pawn
+    getType(): string {
         return this.type;
     };
-    Piece.prototype.getSquare = function () {
+
+    getSquare(): BoardSquare {
         return this.square;
     };
-    Piece.prototype.setSquare = function (square) {
-        if(this.square != null) {
+
+    setSquare(square: BoardSquare) {
+        if (this.square != null)
             this.square.setPiece(null);
-        }
         this.square = square;
-        if(square != null) {
+        if (square!=null)
             square.setPiece(this);
-        }
     };
-    Piece.prototype.getPosition = function () {
+
+    getPosition(): string {
         return this.square.getId();
     };
-    Piece.prototype.getSelected = function () {
+
+    getSelected(): bool {
         return this.selected;
-    };
-    Piece.prototype.setSelected = function (val) {
+    }
+
+    setSelected(val: bool) {
         this.selected = val;
     };
-    Piece.prototype.draw = function (ctx, x, y) {
-        switch(this.type) {
-            case "K": {
+
+    // K for king, Q for queen, R for rook, B for bishop, and N for knight, "" for pawn
+    draw(ctx: CanvasRenderingContext2D, x : number, y : number) {
+        switch (this.type) {
+            case "K":
                 Piece.drawKing(ctx, this.player, x, y);
                 break;
-
-            }
-            case "Q": {
+            case "Q":
                 Piece.drawQueen(ctx, this.player, x, y);
                 break;
-
-            }
-            case "R": {
+            case "R":
                 Piece.drawRook(ctx, this.player, x, y);
                 break;
-
-            }
-            case "B": {
+            case "B":
                 Piece.drawBishop(ctx, this.player, x, y);
                 break;
-
-            }
-            case "N": {
+            case "N":
                 Piece.drawKnight(ctx, this.player, x, y);
                 break;
-
-            }
-            default: {
+            default:
                 Piece.drawPawn(ctx, this.player, x, y);
                 break;
-
-            }
         }
-    };
-    Piece.drawPawn = function drawPawn(ctx, player, x, y) {
+    }
+    private static drawPawn(ctx : CanvasRenderingContext2D, player : Player, x : number, y : number) {
         ctx.save();
         ctx.translate(x, y);
+
         ctx.strokeStyle = (player.getId() == 0 ? Piece.BlackColor : Piece.WhiteColor);
         ctx.fillStyle = (player.getId() == 1 ? Piece.BlackColor : Piece.WhiteColor);
         ctx.lineWidth = 1.5;
         ctx.lineJoin = 'miter';
         ctx.miterLimit = 4;
+
         ctx.beginPath();
         ctx.moveTo(22, 9);
         ctx.bezierCurveTo(19.792, 9, 18, 10.792, 18, 13);
@@ -91,24 +99,28 @@ var Piece = (function () {
         ctx.bezierCurveTo(26, 10.792, 24.208, 9, 22, 9);
         ctx.stroke();
         ctx.fill();
+
         ctx.restore();
     }
-    Piece.drawKing = function drawKing(ctx, player, x, y) {
+    private static drawKing(ctx : CanvasRenderingContext2D, player : Player, x : number, y : number) {
         ctx.save();
         ctx.translate(x, y);
+
         ctx.strokeStyle = (player.getId() == 0 ? Piece.BlackColor : Piece.WhiteColor);
         ctx.fillStyle = (player.getId() == 1 ? Piece.BlackColor : Piece.WhiteColor);
         ctx.lineWidth = 1.5;
         ctx.lineJoin = 'miter';
         ctx.miterLimit = 4;
+
         ctx.beginPath();
         ctx.moveTo(22.5, 25);
         ctx.bezierCurveTo(22.5, 25, 27, 17.5, 25.5, 14.5);
-        ctx.bezierCurveTo(25.5, 14.5, 24.5, 12, 22.5, 12);
+        ctx.bezierCurveTo(25.5, 14.5, 24.5, 12, 22.5, 12)
         ctx.bezierCurveTo(20.5, 12, 19.5, 14.5, 19.5, 14.5);
         ctx.bezierCurveTo(18, 17.5, 22.5, 25, 22.5, 25);
         ctx.stroke();
         ctx.fill();
+
         ctx.beginPath();
         ctx.moveTo(11.5, 37);
         ctx.bezierCurveTo(17, 40.5, 27, 40.5, 32.5, 37);
@@ -122,36 +134,45 @@ var Piece = (function () {
         ctx.lineTo(11.5, 37);
         ctx.stroke();
         ctx.fill();
+
         ctx.beginPath();
         ctx.moveTo(11.5, 29.5);
         ctx.bezierCurveTo(17, 27, 27, 27, 32.5, 30);
         ctx.stroke();
+
         ctx.beginPath();
         ctx.moveTo(11.5, 37);
         ctx.bezierCurveTo(17, 34.5, 27, 34.5, 32.5, 37);
         ctx.stroke();
+
         ctx.beginPath();
         ctx.moveTo(11.5, 33.5);
         ctx.bezierCurveTo(17, 31.5, 27, 31.5, 32.5, 33.5);
         ctx.stroke();
+
         ctx.strokeStyle = Piece.BlackColor;
+
         ctx.beginPath();
         ctx.moveTo(20, 8);
         ctx.lineTo(25, 8);
         ctx.stroke();
+
         ctx.beginPath();
         ctx.moveTo(22.5, 11.625);
         ctx.lineTo(22.5, 6);
         ctx.stroke();
+
         ctx.restore();
     }
-    Piece.drawRook = function drawRook(ctx, player, x, y) {
+    private static drawRook(ctx : CanvasRenderingContext2D, player : Player, x : number, y : number) {
         ctx.save();
         ctx.translate(x, y);
+
         ctx.strokeStyle = (player.getId() == 0 ? Piece.BlackColor : Piece.WhiteColor);
         ctx.fillStyle = (player.getId() == 1 ? Piece.BlackColor : Piece.WhiteColor);
         ctx.lineWidth = 1.5;
         ctx.miterLimit = 4;
+
         ctx.lineJoin = 'round';
         ctx.beginPath();
         ctx.moveTo(9, 39);
@@ -161,6 +182,7 @@ var Piece = (function () {
         ctx.lineTo(9, 39);
         ctx.stroke();
         ctx.fill();
+
         ctx.lineJoin = 'round';
         ctx.beginPath();
         ctx.moveTo(12, 36);
@@ -170,6 +192,7 @@ var Piece = (function () {
         ctx.lineTo(12, 36);
         ctx.stroke();
         ctx.fill();
+
         ctx.lineJoin = 'round';
         ctx.beginPath();
         ctx.moveTo(11, 14);
@@ -186,6 +209,7 @@ var Piece = (function () {
         ctx.lineTo(34, 14);
         ctx.stroke();
         ctx.fill();
+
         ctx.lineJoin = 'round';
         ctx.beginPath();
         ctx.moveTo(34, 14);
@@ -194,6 +218,7 @@ var Piece = (function () {
         ctx.lineTo(11, 14);
         ctx.stroke();
         ctx.fill();
+
         ctx.lineJoin = 'miter';
         ctx.beginPath();
         ctx.moveTo(31, 17);
@@ -202,6 +227,7 @@ var Piece = (function () {
         ctx.lineTo(14, 17);
         ctx.stroke();
         ctx.fill();
+
         ctx.lineJoin = 'round';
         ctx.beginPath();
         ctx.moveTo(31, 29.5);
@@ -210,21 +236,25 @@ var Piece = (function () {
         ctx.lineTo(14, 29.5);
         ctx.stroke();
         ctx.fill();
+
         ctx.lineJoin = 'miter';
         ctx.lineWidth = 1;
         ctx.beginPath();
         ctx.moveTo(11, 14);
         ctx.lineTo(34, 14);
         ctx.stroke();
+
         ctx.restore();
     }
-    Piece.drawKnight = function drawKnight(ctx, player, x, y) {
+    private static drawKnight(ctx : CanvasRenderingContext2D, player : Player, x : number, y : number) {
         ctx.save();
         ctx.translate(x, y);
+
         ctx.strokeStyle = (player.getId() == 0 ? Piece.BlackColor : Piece.WhiteColor);
         ctx.fillStyle = (player.getId() == 1 ? Piece.BlackColor : Piece.WhiteColor);
         ctx.lineWidth = 1.5;
         ctx.miterLimit = 4;
+
         ctx.lineJoin = 'miter';
         ctx.beginPath();
         ctx.moveTo(22, 10);
@@ -233,6 +263,7 @@ var Piece = (function () {
         ctx.bezierCurveTo(15, 30, 25, 32.5, 23, 18);
         ctx.stroke();
         ctx.fill();
+
         ctx.lineJoin = 'round';
         ctx.beginPath();
         ctx.moveTo(24, 18);
@@ -250,6 +281,7 @@ var Piece = (function () {
         ctx.bezierCurveTo(22, 7, 22, 10, 22, 10);
         ctx.stroke();
         ctx.fill();
+
         ctx.lineJoin = 'round';
         ctx.beginPath();
         ctx.moveTo(9, 23.5);
@@ -257,6 +289,7 @@ var Piece = (function () {
         ctx.arc(9, 23.5, 0, 0.5, 0.5, true);
         ctx.stroke();
         ctx.fill();
+
         ctx.lineJoin = 'round';
         ctx.beginPath();
         ctx.moveTo(15, 15.5);
@@ -264,20 +297,24 @@ var Piece = (function () {
         ctx.arc(15, 15.5, 0, 0.5, 1.5, true);
         ctx.stroke();
         ctx.fill();
+
         ctx.lineJoin = 'miter';
         ctx.beginPath();
         ctx.moveTo(37, 39);
         ctx.bezierCurveTo(38, 19, 31.5, 11.5, 25, 10.5);
         ctx.stroke();
+
         ctx.restore();
     }
-    Piece.drawBishop = function drawBishop(ctx, player, x, y) {
+    private static drawBishop(ctx : CanvasRenderingContext2D, player : Player, x : number, y : number) {
         ctx.save();
         ctx.translate(x, y);
+
         ctx.strokeStyle = (player.getId() == 0 ? Piece.BlackColor : Piece.WhiteColor);
         ctx.fillStyle = (player.getId() == 1 ? Piece.BlackColor : Piece.WhiteColor);
         ctx.lineWidth = 1.5;
         ctx.miterLimit = 4;
+
         ctx.lineJoin = 'round';
         ctx.beginPath();
         ctx.moveTo(9, 36);
@@ -291,6 +328,7 @@ var Piece = (function () {
         ctx.bezierCurveTo(7.3541, 36.055, 9, 36, 9, 36);
         ctx.stroke();
         ctx.fill();
+
         ctx.beginPath();
         ctx.moveTo(15, 32);
         ctx.bezierCurveTo(17.5, 34.5, 27.5, 34.5, 30, 32);
@@ -302,57 +340,71 @@ var Piece = (function () {
         ctx.bezierCurveTo(15, 30, 14.5, 30.5, 15, 32);
         ctx.stroke();
         ctx.fill();
+
         ctx.beginPath();
         ctx.arc(22.5, 8, 2.5, 0, 2 * Math.PI, true);
         ctx.stroke();
         ctx.fill();
+
         ctx.lineJoin = 'miter';
+
         ctx.beginPath();
         ctx.moveTo(22.5, 15.5);
         ctx.lineTo(22.5, 20.5);
         ctx.stroke();
+
         ctx.beginPath();
         ctx.moveTo(20, 18);
         ctx.lineTo(25, 18);
         ctx.stroke();
+
         ctx.lineWidth = 1;
         ctx.beginPath();
         ctx.moveTo(17, 26);
         ctx.lineTo(28, 26);
         ctx.stroke();
+
         ctx.beginPath();
         ctx.moveTo(15, 30);
         ctx.lineTo(30, 30);
         ctx.stroke();
+
         ctx.restore();
     }
-    Piece.drawQueen = function drawQueen(ctx, player, x, y) {
+    private static drawQueen(ctx : CanvasRenderingContext2D, player : Player, x : number, y : number) {
         ctx.save();
         ctx.translate(x, y);
+
         ctx.strokeStyle = (player.getId() == 0 ? Piece.BlackColor : Piece.WhiteColor);
         ctx.fillStyle = (player.getId() == 1 ? Piece.BlackColor : Piece.WhiteColor);
         ctx.lineWidth = 1.5;
         ctx.miterLimit = 4;
+
         ctx.beginPath();
         ctx.arc(6, 11.5, 2, 0, 2 * Math.PI, true);
         ctx.stroke();
         ctx.fill();
+
         ctx.beginPath();
         ctx.arc(13.5, 8, 2, 0, 2 * Math.PI, true);
         ctx.stroke();
         ctx.fill();
+
         ctx.beginPath();
         ctx.arc(22.5, 7, 2, 0, 2 * Math.PI, true);
         ctx.stroke();
         ctx.fill();
+
         ctx.beginPath();
         ctx.arc(31.5, 8, 2, 0, 2 * Math.PI, true);
         ctx.stroke();
         ctx.fill();
+
         ctx.beginPath();
         ctx.arc(39, 11.5, 2, 0, 2 * Math.PI, true);
         ctx.stroke();
         ctx.fill();
+
         ctx.lineJoin = 'round';
         ctx.beginPath();
         ctx.moveTo(9, 26);
@@ -369,6 +421,7 @@ var Piece = (function () {
         ctx.lineTo(9, 26);
         ctx.stroke();
         ctx.fill();
+
         ctx.beginPath();
         ctx.moveTo(9, 26);
         ctx.bezierCurveTo(9, 28, 10.5, 28, 11.5, 30);
@@ -383,21 +436,24 @@ var Piece = (function () {
         ctx.bezierCurveTo(27.5, 24.5, 17.5, 24.5, 9, 26);
         ctx.stroke();
         ctx.fill();
+
         ctx.lineJoin = 'round';
         ctx.lineWidth = 1;
         ctx.beginPath();
         ctx.moveTo(11.5, 30);
         ctx.bezierCurveTo(15, 29, 30, 29, 33.5, 30);
         ctx.stroke();
+
         ctx.beginPath();
         ctx.moveTo(12, 33.5);
         ctx.bezierCurveTo(18, 32.5, 27, 32.5, 33, 33.5);
         ctx.stroke();
+
         ctx.beginPath();
         ctx.moveTo(10.5, 36);
         ctx.bezierCurveTo(15.5, 35, 29, 35, 34, 36);
         ctx.stroke();
+
         ctx.restore();
     }
-    return Piece;
-})();
+}

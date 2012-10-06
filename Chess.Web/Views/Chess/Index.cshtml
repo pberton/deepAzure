@@ -6,6 +6,7 @@
 <script src="@Url.Content("~/Scripts/Chess/Game.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/Chess/Piece.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/Chess/Player.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/Chess/Index.js")" type="text/javascript"></script>
 <h2>
     Chess</h2>
 <div id="game" style="display: inline">
@@ -26,54 +27,3 @@
     <p>
         You can download <a href="http://www.microsoft.com/download/en/default.aspx">IE9</a></p>
 </div>
-<script type="text/javascript">
-    var board = null;
-    var game = null;
-
-    function start(userId) {
-        // check for canvas, show an "Upgrade your browser" screen if they don't have it.
-        var canvas = document.getElementById('board');
-
-        if (!!canvas.getContext && !!canvas.getContext("2d")) {
-            board = new Board(canvas);
-            game = new Game(board);
-
-            game.startNewGame();
-            board.draw();
-        }
-        else {
-            $("#game").toggle();
-            $("#notSupported").toggle();
-        }
-    }
-
-    $(function () {
-        start(null);
-
-        $("#board").click(function (e) {
-            var x = e.offsetX;
-            var y = e.offsetY;
-
-            game.action(x, y);
-        });
-
-        $("#cmdReset").click(function () {
-            if (confirm('Are you sure?')) {
-                start(null);
-                alert('Reset!');
-            }
-        });
-
-        $("#cmdMove").click(function () {
-            var move = $("#txtMove").val();
-            game.moveById(move);
-        });
-
-    });
-
-    $(window).resize(function () {
-        if (board != null)
-            board.draw();
-    });
-
-</script>

@@ -1,16 +1,27 @@
-var Player = (function () {
-    function Player(id, board) {
+///<reference path='Board.ts' />
+
+class Player {
+    private color: string;
+    private id: number;
+    private board: Board;
+
+    constructor (id: number, board: Board) {
         this.color = (id == 0 ? "White" : "Black");
         this.id = id;
         this.board = board;
     }
-    Player.prototype.getId = function () {
+
+    getId() : number {
         return this.id;
-    };
-    Player.prototype.getColor = function () {
+    }
+
+    getColor() : string {
         return this.color;
-    };
-    Player.prototype.setStartPosition = function () {
+    }
+
+    setStartPosition() {
+        //this.pieces = new Piece[]()
+        // Set pieces to start position
         if(this.id == 0) {
             this.setPiece("R", "a1");
             this.setPiece("N", "b1");
@@ -20,6 +31,7 @@ var Player = (function () {
             this.setPiece("B", "f1");
             this.setPiece("N", "g1");
             this.setPiece("R", "h1");
+            // pawns
             this.setPiece("", "a2");
             this.setPiece("", "b2");
             this.setPiece("", "c2");
@@ -28,7 +40,8 @@ var Player = (function () {
             this.setPiece("", "f2");
             this.setPiece("", "g2");
             this.setPiece("", "h2");
-        } else {
+        }
+        else {
             this.setPiece("R", "a8");
             this.setPiece("N", "b8");
             this.setPiece("B", "c8");
@@ -37,6 +50,7 @@ var Player = (function () {
             this.setPiece("B", "f8");
             this.setPiece("N", "g8");
             this.setPiece("R", "h8");
+            // pawns
             this.setPiece("", "a7");
             this.setPiece("", "b7");
             this.setPiece("", "c7");
@@ -46,71 +60,78 @@ var Player = (function () {
             this.setPiece("", "g7");
             this.setPiece("", "h7");
         }
-    };
-    Player.prototype.setPiece = function (type, position) {
+    }
+
+    setPiece(type : string, position : string) {
         var square = this.board.getSquareById(position);
-        if(square != null) {
+        if (square != null) {
             var piece = new Piece(this, type);
             piece.setSquare(square);
         }
-    };
-    Player.prototype.move = function (piece, square) {
+    }
+
+    move(piece: Piece, square: BoardSquare) : bool {
         var originalSquare = piece.getSquare();
+
         var capturedPiece = square.getPiece();
-        if(capturedPiece != null) {
+        if (capturedPiece != null) {
             capturedPiece.setSquare(null);
         }
+
         piece.setSquare(square);
         originalSquare.setSelected(false);
         piece.setSelected(false);
+
         this.board.drawSquare(originalSquare);
         this.board.drawSquare(square);
         return true;
-    };
-    Player.prototype.getSelectedPiece = function () {
-        var selectedPiece = null;
+    }
+
+    getSelectedPiece() : Piece {
+        var selectedPiece: Piece = null;
         $.each(this.getPieces(), function (index, piece) {
-            if(piece.getSelected()) {
+               if (piece.getSelected())
                 selectedPiece = piece;
-            }
         });
         return selectedPiece;
-    };
-    Player.prototype.selectPiece = function (x, y) {
+    }
+
+    selectPiece(x: number, y: number) {
         var board = this.board;
         var square = board.getSelectedSquare(x, y);
-        if(square != null) {
+        if (square != null) {
             var pieceInSquare = square.getPiece();
-            if(pieceInSquare != null) {
-                $.each(this.getPieces(), function (index, piece) {
-                    if(piece == pieceInSquare) {
-                        piece.setSelected(true);
-                        board.selectSquare(piece.getSquare());
-                    } else {
-                        piece.setSelected(false);
-                    }
+            if (pieceInSquare != null) {
+                 $.each(this.getPieces(), function (index: number, piece: Piece) {
+                     if (piece == pieceInSquare) {
+                         piece.setSelected(true);
+                         board.selectSquare(piece.getSquare());
+                     }
+                     else {
+                         piece.setSelected(false);
+                     }
                 });
             }
         }
-    };
-    Player.prototype.getPiecesAsStrings = function () {
-        var piecesAsString = new Array();
-        $.each(this.getPieces(), function (index, piece) {
+    }
+
+    getPiecesAsStrings(): string[] {
+        var piecesAsString: string[] = new string[];
+        $.each(this.getPieces(), function (index: number, piece: Piece) {
             var str = piece.getType() + piece.getPosition();
             piecesAsString.push(str);
         });
         return piecesAsString;
-    };
-    Player.prototype.getPieces = function () {
-        var pieces = new Array();
+    }
+    
+    getPieces(): Piece[] {
+        var pieces: Piece[] = new Piece[];
         var currentPlayer = this;
-        $.each(this.board.getSquares(), function (index, square) {
+        $.each(this.board.getSquares(), (index: number, square: BoardSquare) {
             var piece = square.getPiece();
-            if(piece != null && piece.getPlayer() == currentPlayer) {
+            if (piece!= null && piece.getPlayer() == currentPlayer)
                 pieces[pieces.length] = piece;
-            }
         });
         return pieces;
-    };
-    return Player;
-})();
+    }
+}

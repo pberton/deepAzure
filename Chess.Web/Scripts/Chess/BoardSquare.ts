@@ -1,49 +1,67 @@
-var BoardSquare = (function () {
-    function BoardSquare(id, positionX, positionY, length, fillStyle) {
+///<reference path='Piece.ts' />
+
+class BoardSquare {
+    private id: string;
+    private x: number;
+    private y: number;
+    private length: number;
+    private fillStyle: string;
+    private selected: bool;
+    private piece: Piece;
+
+    constructor (id: string, positionX: number, positionY: number, length: number, fillStyle: string) {
         this.id = id;
         this.x = positionX;
         this.y = positionY;
         this.length = length;
         this.fillStyle = fillStyle;
         this.selected = false;
+
         this.piece = null;
     }
-    BoardSquare.prototype.getX = function () {
+    getX(): number
+    {
         return this.x;
-    };
-    BoardSquare.prototype.getY = function () {
+    }
+    getY(): number
+    {
         return this.y;
-    };
-    BoardSquare.prototype.getSelected = function () {
+    }
+    getSelected(): bool {
         return this.selected;
-    };
-    BoardSquare.prototype.setSelected = function (val) {
+    }
+    setSelected(val: bool) {
         this.selected = val;
-    };
-    BoardSquare.prototype.getId = function () {
+    }
+    getId() : string {
         return this.id;
-    };
-    BoardSquare.prototype.getPiece = function () {
+    }
+    getPiece(): Piece {
         return this.piece;
-    };
-    BoardSquare.prototype.setPiece = function (piece) {
+    }
+    setPiece(piece: Piece) {
         this.piece = piece;
-    };
-    BoardSquare.prototype.draw = function (ctx) {
+    }
+    draw(ctx: CanvasRenderingContext2D) {
         ctx.save();
-        if(this.selected) {
+
+        if (this.selected) {
             ctx.fillStyle = Board.SelectedColor;
-        } else {
+        }
+        else {
             ctx.fillStyle = this.fillStyle;
         }
+
         ctx.fillRect(this.x, this.y, this.length, this.length);
-        if(this.piece != null) {
+
+        if (this.piece != null) {
             this.piece.draw(ctx, this.x, this.y);
-        } else {
+        }
+        else {
             ctx.fillStyle = "black";
             ctx.fillText(this.id, (this.x + this.length / 2 - 5), (this.y + this.length / 2 + 5));
         }
+
         ctx.restore();
-    };
-    return BoardSquare;
-})();
+    }
+}
