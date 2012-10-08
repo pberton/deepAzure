@@ -1,28 +1,21 @@
 ///<reference path='Board.ts' />
 
 class Player {
-    private color: string;
-    private id: number;
-    private board: Board;
+    private _id: number;
+    private _board: Board;
 
     constructor (id: number, board: Board) {
-        this.color = (id == 0 ? "White" : "Black");
-        this.id = id;
-        this.board = board;
+        this._id = id; // 0 : White ; 1 : Black
+        this._board = board;
     }
 
     getId() : number {
-        return this.id;
+        return this._id;
     }
 
-    getColor() : string {
-        return this.color;
-    }
-
-    setStartPosition() {
-        //this.pieces = new Piece[]()
+    setStartPosition() : void {
         // Set pieces to start position
-        if(this.id == 0) {
+        if(this._id == 0) {
             this.setPiece("R", "a1");
             this.setPiece("N", "b1");
             this.setPiece("B", "c1");
@@ -62,8 +55,8 @@ class Player {
         }
     }
 
-    setPiece(type : string, position : string) {
-        var square = this.board.getSquareById(position);
+    setPiece(type : string, position : string) : void {
+        var square = this._board.getSquareById(position);
         if (square != null) {
             var piece = new Piece(this, type);
             piece.setSquare(square);
@@ -82,8 +75,8 @@ class Player {
         originalSquare.setSelected(false);
         piece.setSelected(false);
 
-        this.board.drawSquare(originalSquare);
-        this.board.drawSquare(square);
+        this._board.drawSquare(originalSquare);
+        this._board.drawSquare(square);
         return true;
     }
 
@@ -97,12 +90,12 @@ class Player {
     }
 
     selectPiece(x: number, y: number) {
-        var board = this.board;
+        var board = this._board;
         var square = board.getSelectedSquare(x, y);
         if (square != null) {
             var pieceInSquare = square.getPiece();
             if (pieceInSquare != null) {
-                 $.each(this.getPieces(), function (index: number, piece: Piece) {
+                 $.each(this.getPieces(), (index: number, piece: Piece) => {
                      if (piece == pieceInSquare) {
                          piece.setSelected(true);
                          board.selectSquare(piece.getSquare());
@@ -117,7 +110,7 @@ class Player {
 
     getPiecesAsStrings(): string[] {
         var piecesAsString: string[] = new string[];
-        $.each(this.getPieces(), function (index: number, piece: Piece) {
+        $.each(this.getPieces(), (index: number, piece: Piece) => {
             var str = piece.getType() + piece.getPosition();
             piecesAsString.push(str);
         });
@@ -126,11 +119,10 @@ class Player {
     
     getPieces(): Piece[] {
         var pieces: Piece[] = new Piece[];
-        var currentPlayer = this;
-        $.each(this.board.getSquares(), (index: number, square: BoardSquare) {
+        $.each(this._board.getSquares(), (index: number, square: BoardSquare) => {
             var piece = square.getPiece();
-            if (piece!= null && piece.getPlayer() == currentPlayer)
-                pieces[pieces.length] = piece;
+            if (piece!= null && piece.getPlayer() == this)
+                pieces.push(piece);
         });
         return pieces;
     }

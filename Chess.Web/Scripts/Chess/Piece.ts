@@ -6,75 +6,75 @@ class Piece {
     static WhiteColor = "#FFFFFF";
     static BlackColor = "#000000";
 
-    private player: Player;
-    private type: string;
-    private square: BoardSquare;
-    private selected: bool;
+    private _player: Player;
+    private _type: string;
+    private _square: BoardSquare;
+    private _selected: bool;
 
     constructor (player: Player, type: string) {
-        this.player = player;
-        this.type = type;
-        this.square = null;
-        this.selected = false;
+        this._player = player;
+        this._type = type;
+        this._square = null;
+        this._selected = false;
     }
 
     getPlayer(): Player {
-        return this.player;
+        return this._player;
     }
 
     // K for king, Q for queen, R for rook, B for bishop, and N for knight, "" for pawn
     getType(): string {
-        return this.type;
+        return this._type;
     };
 
     getSquare(): BoardSquare {
-        return this.square;
+        return this._square;
     };
 
-    setSquare(square: BoardSquare) {
-        if (this.square != null)
-            this.square.setPiece(null);
-        this.square = square;
+    setSquare(square: BoardSquare) : void {
+        if (this._square != null)
+            this._square.setPiece(null);
+        this._square = square;
         if (square!=null)
             square.setPiece(this);
     };
 
     getPosition(): string {
-        return this.square.getId();
+        return this._square.getId();
     };
 
     getSelected(): bool {
-        return this.selected;
+        return this._selected;
     }
 
     setSelected(val: bool) {
-        this.selected = val;
+        this._selected = val;
     };
 
     // K for king, Q for queen, R for rook, B for bishop, and N for knight, "" for pawn
-    draw(ctx: CanvasRenderingContext2D, x : number, y : number) {
-        switch (this.type) {
+    draw(ctx: CanvasRenderingContext2D, x : number, y : number) : void {
+        switch (this._type) {
             case "K":
-                Piece.drawKing(ctx, this.player, x, y);
+                Piece.drawKing(ctx, this._player, x, y);
                 break;
             case "Q":
-                Piece.drawQueen(ctx, this.player, x, y);
+                Piece.drawQueen(ctx, this._player, x, y);
                 break;
             case "R":
-                Piece.drawRook(ctx, this.player, x, y);
+                Piece.drawRook(ctx, this._player, x, y);
                 break;
             case "B":
-                Piece.drawBishop(ctx, this.player, x, y);
+                Piece.drawBishop(ctx, this._player, x, y);
                 break;
             case "N":
-                Piece.drawKnight(ctx, this.player, x, y);
+                Piece.drawKnight(ctx, this._player, x, y);
                 break;
             default:
-                Piece.drawPawn(ctx, this.player, x, y);
+                Piece.drawPawn(ctx, this._player, x, y);
                 break;
         }
     }
-    private static drawPawn(ctx : CanvasRenderingContext2D, player : Player, x : number, y : number) {
+    private static drawPawn(ctx : CanvasRenderingContext2D, player : Player, x : number, y : number) : void {
         ctx.save();
         ctx.translate(x, y);
 
@@ -102,7 +102,7 @@ class Piece {
 
         ctx.restore();
     }
-    private static drawKing(ctx : CanvasRenderingContext2D, player : Player, x : number, y : number) {
+    private static drawKing(ctx : CanvasRenderingContext2D, player : Player, x : number, y : number) : void {
         ctx.save();
         ctx.translate(x, y);
 
@@ -164,7 +164,7 @@ class Piece {
 
         ctx.restore();
     }
-    private static drawRook(ctx : CanvasRenderingContext2D, player : Player, x : number, y : number) {
+    private static drawRook(ctx : CanvasRenderingContext2D, player : Player, x : number, y : number) : void {
         ctx.save();
         ctx.translate(x, y);
 
@@ -246,7 +246,7 @@ class Piece {
 
         ctx.restore();
     }
-    private static drawKnight(ctx : CanvasRenderingContext2D, player : Player, x : number, y : number) {
+    private static drawKnight(ctx : CanvasRenderingContext2D, player : Player, x : number, y : number) : void {
         ctx.save();
         ctx.translate(x, y);
 
@@ -306,7 +306,7 @@ class Piece {
 
         ctx.restore();
     }
-    private static drawBishop(ctx : CanvasRenderingContext2D, player : Player, x : number, y : number) {
+    private static drawBishop(ctx : CanvasRenderingContext2D, player : Player, x : number, y : number) : void {
         ctx.save();
         ctx.translate(x, y);
 
@@ -371,7 +371,7 @@ class Piece {
 
         ctx.restore();
     }
-    private static drawQueen(ctx : CanvasRenderingContext2D, player : Player, x : number, y : number) {
+    private static drawQueen(ctx : CanvasRenderingContext2D, player : Player, x : number, y : number) : void {
         ctx.save();
         ctx.translate(x, y);
 

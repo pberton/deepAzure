@@ -1,68 +1,68 @@
 var Piece = (function () {
     function Piece(player, type) {
-        this.player = player;
-        this.type = type;
-        this.square = null;
-        this.selected = false;
+        this._player = player;
+        this._type = type;
+        this._square = null;
+        this._selected = false;
     }
     Piece.WhiteColor = "#FFFFFF";
     Piece.BlackColor = "#000000";
     Piece.prototype.getPlayer = function () {
-        return this.player;
+        return this._player;
     };
     Piece.prototype.getType = function () {
-        return this.type;
+        return this._type;
     };
     Piece.prototype.getSquare = function () {
-        return this.square;
+        return this._square;
     };
     Piece.prototype.setSquare = function (square) {
-        if(this.square != null) {
-            this.square.setPiece(null);
+        if(this._square != null) {
+            this._square.setPiece(null);
         }
-        this.square = square;
+        this._square = square;
         if(square != null) {
             square.setPiece(this);
         }
     };
     Piece.prototype.getPosition = function () {
-        return this.square.getId();
+        return this._square.getId();
     };
     Piece.prototype.getSelected = function () {
-        return this.selected;
+        return this._selected;
     };
     Piece.prototype.setSelected = function (val) {
-        this.selected = val;
+        this._selected = val;
     };
     Piece.prototype.draw = function (ctx, x, y) {
-        switch(this.type) {
+        switch(this._type) {
             case "K": {
-                Piece.drawKing(ctx, this.player, x, y);
+                Piece.drawKing(ctx, this._player, x, y);
                 break;
 
             }
             case "Q": {
-                Piece.drawQueen(ctx, this.player, x, y);
+                Piece.drawQueen(ctx, this._player, x, y);
                 break;
 
             }
             case "R": {
-                Piece.drawRook(ctx, this.player, x, y);
+                Piece.drawRook(ctx, this._player, x, y);
                 break;
 
             }
             case "B": {
-                Piece.drawBishop(ctx, this.player, x, y);
+                Piece.drawBishop(ctx, this._player, x, y);
                 break;
 
             }
             case "N": {
-                Piece.drawKnight(ctx, this.player, x, y);
+                Piece.drawKnight(ctx, this._player, x, y);
                 break;
 
             }
             default: {
-                Piece.drawPawn(ctx, this.player, x, y);
+                Piece.drawPawn(ctx, this._player, x, y);
                 break;
 
             }

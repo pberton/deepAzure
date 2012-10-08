@@ -1,85 +1,98 @@
 ///<reference path='../jquery.d.ts' />
 ///<reference path='Board.ts' />
+///<reference path='Services/ChessEngine.ts' />
 
 class Game {
-    private board: Board;
-    private whitePlayer: Player;
-    private blackPlayer: Player;
+    private _board: Board;
+    private _whitePlayer: Player;
+    private _blackPlayer: Player;
+    private _log: string[];
 
-    private playerToPlay: Player;
-    private nextPlayerToPlay: Player;
+    private _playerToPlay: Player;
+    private _nextPlayerToPlay: Player;
+  
+    private _onLog : (data: string) => void;
 
     constructor (board: Board) {
-        this.whitePlayer = new Player(0, board);
-        this.blackPlayer = new Player(1, board);
+        this._whitePlayer = new Player(0, board);
+        this._blackPlayer = new Player(1, board);
 
-        this.board = board;
+        this._board = board;
+    }
+    
+    getLog(): string[] {
+        return this._log; 
     }
 
-    startNewGame() {
-        this.whitePlayer.setStartPosition();
-        this.blackPlayer.setStartPosition();
-
-        this.playerToPlay = this.whitePlayer;
-        this.nextPlayerToPlay = this.blackPlayer;
+    onLog(callback : (data: string) => void) : void {
+        this._onLog = callback;
     }
 
-    moveById(targetId: string) {
-        var square = this.board.getSquareById(targetId);
+    startNewGame() : void {
+        this._log = new string[]();
+
+        this._whitePlayer.setStartPosition();
+        this._blackPlayer.setStartPosition();
+
+        this._playerToPlay = this._whitePlayer;
+        this._nextPlayerToPlay = this._blackPlayer;
+    }
+
+    moveById(targetId: string) : void {
+        var square = this._board.getSquareById(targetId);
         this.moveTo(square);
     }
 
-    moveTo(square: BoardSquare) {
-        var currentPlayer = this.playerToPlay;
-        var nextPlayer = this.nextPlayerToPlay;
+    moveTo(square: BoardSquare) : void {
+        var currentPlayer = this._playerToPlay;
+        var nextPlayer = this._nextPlayerToPlay;
         var piece = currentPlayer.getSelectedPiece();
-        var game = this;
 
         if (piece != null && square != null) {
             this.evaluateValidMove(piece, square, 
-                function (isValid) {
+                (isValid) => {
                     if (isValid) {
                         var result = currentPlayer.move(piece, square);
                         if (result) {
-                            game.playerToPlay = nextPlayer;
-                            game.nextPlayerToPlay = currentPlayer
+                            this._playerToPlay = nextPlayer;
+                            this._nextPlayerToPlay = currentPlayer;
+                            this.logPieceMove(piece);
                         }
                     }
                 },
-                function (e) { alert(e.statusText) }
+                status => alert(status)
             );
         }
     }
 
-    action(x, y) {
-        if (this.playerToPlay.getSelectedPiece() != null) {
-            var square = this.board.getSelectedSquare(x, y);
-            if (square.getPiece() != null && square.getPiece().getPlayer() == this.playerToPlay) {
-                this.playerToPlay.selectPiece(x, y);
+    action(x, y) : void {
+        if (this._playerToPlay.getSelectedPiece() != null) {
+            var square = this._board.getSelectedSquare(x, y);
+            if (square.getPiece() != null && square.getPiece().getPlayer() == this._playerToPlay) {
+                this._playerToPlay.selectPiece(x, y);
             }
             else {
                 this.moveTo(square);
             }
         }
         else {
-            this.playerToPlay.selectPiece(x, y);
+            this._playerToPlay.selectPiece(x, y);
         }
     }
 
-    evaluateValidMove(piece: Piece, square: BoardSquare, callback, errorCallback)  {
-        var request = {
-            WhitePieces: this.whitePlayer.getPiecesAsStrings(), BlackPieces: this.blackPlayer.getPiecesAsStrings(),
+    private evaluateValidMove(piece: Piece, square: BoardSquare, callback : (isValid: bool) => void, errorCallback : (status: string) => void) : void {
+        var request : Services.IMoveRequest = {
+            WhitePieces: this._whitePlayer.getPiecesAsStrings(), BlackPieces: this._blackPlayer.getPiecesAsStrings(),
             From: piece.getPosition(), To: square.getId()
         }
-        var settings: JQueryAjaxSettings = {
-            type: "POST", 
-            contentType: "application/json",
-            data: JSON.stringify(request),
-            dataType: "json",
-            success: callback,
-            error: errorCallback
-        }
-
-        $.ajax("/Services/ChessEngine.svc/IsValidMove",settings);
+        Services.ChessEngine.isValidMode(request,callback,errorCallback);
     }
+
+    private logPieceMove(piece: Piece) : void {
+        var text = piece.getType() + piece.getSquare().getId();
+        this._log.push(text);
+
+        if (this._onLog!=null)
+            this._onLog(text);
+    }   
 }

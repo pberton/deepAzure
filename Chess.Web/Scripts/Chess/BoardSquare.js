@@ -1,47 +1,47 @@
 var BoardSquare = (function () {
     function BoardSquare(id, positionX, positionY, length, fillStyle) {
-        this.id = id;
-        this.x = positionX;
-        this.y = positionY;
-        this.length = length;
-        this.fillStyle = fillStyle;
-        this.selected = false;
-        this.piece = null;
+        this._id = id;
+        this._x = positionX;
+        this._y = positionY;
+        this._length = length;
+        this._fillStyle = fillStyle;
+        this._selected = false;
+        this._piece = null;
     }
     BoardSquare.prototype.getX = function () {
-        return this.x;
+        return this._x;
     };
     BoardSquare.prototype.getY = function () {
-        return this.y;
+        return this._y;
     };
     BoardSquare.prototype.getSelected = function () {
-        return this.selected;
+        return this._selected;
     };
     BoardSquare.prototype.setSelected = function (val) {
-        this.selected = val;
+        this._selected = val;
     };
     BoardSquare.prototype.getId = function () {
-        return this.id;
+        return this._id;
     };
     BoardSquare.prototype.getPiece = function () {
-        return this.piece;
+        return this._piece;
     };
     BoardSquare.prototype.setPiece = function (piece) {
-        this.piece = piece;
+        this._piece = piece;
     };
     BoardSquare.prototype.draw = function (ctx) {
         ctx.save();
-        if(this.selected) {
+        if(this._selected) {
             ctx.fillStyle = Board.SelectedColor;
         } else {
-            ctx.fillStyle = this.fillStyle;
+            ctx.fillStyle = this._fillStyle;
         }
-        ctx.fillRect(this.x, this.y, this.length, this.length);
-        if(this.piece != null) {
-            this.piece.draw(ctx, this.x, this.y);
+        ctx.fillRect(this._x, this._y, this._length, this._length);
+        if(this._piece != null) {
+            this._piece.draw(ctx, this._x, this._y);
         } else {
             ctx.fillStyle = "black";
-            ctx.fillText(this.id, (this.x + this.length / 2 - 5), (this.y + this.length / 2 + 5));
+            ctx.fillText(this._id, (this._x + this._length / 2 - 5), (this._y + this._length / 2 + 5));
         }
         ctx.restore();
     };

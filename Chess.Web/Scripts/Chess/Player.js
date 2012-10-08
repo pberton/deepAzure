@@ -1,17 +1,13 @@
 var Player = (function () {
     function Player(id, board) {
-        this.color = (id == 0 ? "White" : "Black");
-        this.id = id;
-        this.board = board;
+        this._id = id;
+        this._board = board;
     }
     Player.prototype.getId = function () {
-        return this.id;
-    };
-    Player.prototype.getColor = function () {
-        return this.color;
+        return this._id;
     };
     Player.prototype.setStartPosition = function () {
-        if(this.id == 0) {
+        if(this._id == 0) {
             this.setPiece("R", "a1");
             this.setPiece("N", "b1");
             this.setPiece("B", "c1");
@@ -48,7 +44,7 @@ var Player = (function () {
         }
     };
     Player.prototype.setPiece = function (type, position) {
-        var square = this.board.getSquareById(position);
+        var square = this._board.getSquareById(position);
         if(square != null) {
             var piece = new Piece(this, type);
             piece.setSquare(square);
@@ -63,8 +59,8 @@ var Player = (function () {
         piece.setSquare(square);
         originalSquare.setSelected(false);
         piece.setSelected(false);
-        this.board.drawSquare(originalSquare);
-        this.board.drawSquare(square);
+        this._board.drawSquare(originalSquare);
+        this._board.drawSquare(square);
         return true;
     };
     Player.prototype.getSelectedPiece = function () {
@@ -77,7 +73,7 @@ var Player = (function () {
         return selectedPiece;
     };
     Player.prototype.selectPiece = function (x, y) {
-        var board = this.board;
+        var board = this._board;
         var square = board.getSelectedSquare(x, y);
         if(square != null) {
             var pieceInSquare = square.getPiece();
@@ -102,12 +98,12 @@ var Player = (function () {
         return piecesAsString;
     };
     Player.prototype.getPieces = function () {
+        var _this = this;
         var pieces = new Array();
-        var currentPlayer = this;
-        $.each(this.board.getSquares(), function (index, square) {
+        $.each(this._board.getSquares(), function (index, square) {
             var piece = square.getPiece();
-            if(piece != null && piece.getPlayer() == currentPlayer) {
-                pieces[pieces.length] = piece;
+            if(piece != null && piece.getPlayer() == _this) {
+                pieces.push(piece);
             }
         });
         return pieces;

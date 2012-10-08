@@ -7,15 +7,15 @@ class Board {
     static SelectedColor: string = "#7E1BE0";
     static SquareSize: number = 45;
 
-    private canvas: HTMLCanvasElement;
-    private context: CanvasRenderingContext2D;
-    private squares: BoardSquare[] = new BoardSquare[]();
-    private scaleRatio: number = 1;
-    private canvasSize: number;
+    private _canvas: HTMLCanvasElement;
+    private _context: CanvasRenderingContext2D;
+    private _squares: BoardSquare[] = new BoardSquare[]();
+    private _scaleRatio: number = 1;
+    private _canvasSize: number;
 
     constructor (canvas: HTMLCanvasElement) {
-        this.canvas = canvas;
-        this.context = this.canvas.getContext("2d");
+        this._canvas = canvas;
+        this._context = this._canvas.getContext("2d");
 
         var counter = 0;
         for (var i = 0; i < 8; i++) {
@@ -23,7 +23,7 @@ class Board {
                 var x = Board.SquareSize * i;
                 var y = Board.SquareSize * j;
                 var fillStyle = ((i + j) % 2 != 0) ? Board.DarkColor : Board.LightColor;
-                this.squares[counter] = new BoardSquare(Board.getSquareId(i, j), x, y, Board.SquareSize, fillStyle);
+                this._squares.push(new BoardSquare(Board.getSquareId(i, j), x, y, Board.SquareSize, fillStyle));
                 counter++;
             }
         }
@@ -34,72 +34,72 @@ class Board {
     }
 
     getSquares(): BoardSquare[] {
-        return this.squares;
+        return this._squares;
     }
 
     getCanvasSize() : number {
-        return Math.min($(window).width(), $(window).height()) - 15;
+        return Math.min($(window).width()  - 15, $(window).height()  - 100);
     }
 
-    draw() {
-        this.canvasSize = this.getCanvasSize();
-        this.canvas.width = this.canvasSize;
-        this.canvas.height = this.canvasSize;
+    draw() : void {
+        this._canvasSize = this.getCanvasSize();
+        this._canvas.width = this._canvasSize;
+        this._canvas.height = this._canvasSize;
 
         this.scale();
 
-        this.context.strokeStyle = Board.DarkColor;
-        this.context.fillStyle = Board.LightColor;
-        this.context.fillRect(0, 0, length, length);
+        this._context.strokeStyle = Board.DarkColor;
+        this._context.fillStyle = Board.LightColor;
+        this._context.fillRect(0, 0, length, length);
 
-        for (var i = 0; i < this.squares.length; i++) {
-            this.drawSquare(this.squares[i]);
+        for (var i = 0; i < this._squares.length; i++) {
+            this.drawSquare(this._squares[i]);
         }
 
-        this.context.strokeRect(0, 0, length, length);
+        this._context.strokeRect(0, 0, length, length);
     }
 
     getSquareById(id: string) : BoardSquare {
-        for (var i = 0; i < this.squares.length; i++) {
-            var square = this.squares[i];
+        for (var i = 0; i < this._squares.length; i++) {
+            var square = this._squares[i];
             if (square.getId() == id)
                 return square;
         }
     }
 
-    drawSquare(square: BoardSquare) {
-        square.draw(this.context);
+    drawSquare(square: BoardSquare) : void {
+        square.draw(this._context);
     }
 
-    scale() {
+    scale() : void {
         var length = Board.SquareSize << 3;
-        this.scaleRatio = this.canvasSize / length;
-        this.context.scale(this.scaleRatio, this.scaleRatio);
+        this._scaleRatio = this._canvasSize / length;
+        this._context.scale(this._scaleRatio, this._scaleRatio);
     }
 
-    selectSquare(selected: BoardSquare) {
-        for (var i = 0; i < this.squares.length; i++) {
-            var square = this.squares[i];
+    selectSquare(selected: BoardSquare) : void {
+        for (var i = 0; i < this._squares.length; i++) {
+            var square = this._squares[i];
             if (square == selected) {
                 square.setSelected(true);
-                square.draw(this.context);
+                square.draw(this._context);
             }
             else {
                 if (square.getSelected()) {
                     square.setSelected(false);
-                    square.draw(this.context);
+                    square.draw(this._context);
                 }
             }
         }
     }
 
     getSelectedSquare(x: number, y: number) : BoardSquare {
-        var scaledX = x / this.scaleRatio;
-        var scaledY = y / this.scaleRatio;
+        var scaledX = x / this._scaleRatio;
+        var scaledY = y / this._scaleRatio;
         var squareLength = Board.SquareSize;
 
-        for (var i = 0; i < this.squares.length; i++) {
-            var square = this.squares[i];
+        for (var i = 0; i < this._squares.length; i++) {
+            var square = this._squares[i];
             if (square.getX() < scaledX && square.getX() > (scaledX - squareLength)
                 && square.getY() < scaledY && square.getY() > (scaledY - squareLength)) {
                 return square;

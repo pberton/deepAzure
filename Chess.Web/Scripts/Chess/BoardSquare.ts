@@ -1,65 +1,65 @@
 ///<reference path='Piece.ts' />
 
 class BoardSquare {
-    private id: string;
-    private x: number;
-    private y: number;
-    private length: number;
-    private fillStyle: string;
-    private selected: bool;
-    private piece: Piece;
+    private _id: string;
+    private _x: number;
+    private _y: number;
+    private _length: number;
+    private _fillStyle: string;
+    private _selected: bool;
+    private _piece: Piece;
 
     constructor (id: string, positionX: number, positionY: number, length: number, fillStyle: string) {
-        this.id = id;
-        this.x = positionX;
-        this.y = positionY;
-        this.length = length;
-        this.fillStyle = fillStyle;
-        this.selected = false;
+        this._id = id;
+        this._x = positionX;
+        this._y = positionY;
+        this._length = length;
+        this._fillStyle = fillStyle;
+        this._selected = false;
 
-        this.piece = null;
+        this._piece = null;
     }
     getX(): number
     {
-        return this.x;
+        return this._x;
     }
     getY(): number
     {
-        return this.y;
+        return this._y;
     }
     getSelected(): bool {
-        return this.selected;
+        return this._selected;
     }
     setSelected(val: bool) {
-        this.selected = val;
+        this._selected = val;
     }
     getId() : string {
-        return this.id;
+        return this._id;
     }
     getPiece(): Piece {
-        return this.piece;
+        return this._piece;
     }
     setPiece(piece: Piece) {
-        this.piece = piece;
+        this._piece = piece;
     }
-    draw(ctx: CanvasRenderingContext2D) {
+    draw(ctx: CanvasRenderingContext2D) : void {
         ctx.save();
 
-        if (this.selected) {
+        if (this._selected) {
             ctx.fillStyle = Board.SelectedColor;
         }
         else {
-            ctx.fillStyle = this.fillStyle;
+            ctx.fillStyle = this._fillStyle;
         }
 
-        ctx.fillRect(this.x, this.y, this.length, this.length);
+        ctx.fillRect(this._x, this._y, this._length, this._length);
 
-        if (this.piece != null) {
-            this.piece.draw(ctx, this.x, this.y);
+        if (this._piece != null) {
+            this._piece.draw(ctx, this._x, this._y);
         }
         else {
             ctx.fillStyle = "black";
-            ctx.fillText(this.id, (this.x + this.length / 2 - 5), (this.y + this.length / 2 + 5));
+            ctx.fillText(this._id, (this._x + this._length / 2 - 5), (this._y + this._length / 2 + 5));
         }
 
         ctx.restore();

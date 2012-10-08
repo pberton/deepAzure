@@ -6,6 +6,9 @@ function start(userId) {
     if(!!canvas.getContext && !!canvas.getContext("2d")) {
         board = new Board(canvas);
         game = new Game(board);
+        game.onLog(function (data) {
+            return $("#log").append(data + " ");
+        });
         game.startNewGame();
         board.draw();
     } else {
@@ -25,10 +28,6 @@ $(function () {
             start(null);
             alert('Reset!');
         }
-    });
-    $("#cmdMove").click(function (e) {
-        var move = $("#txtMove").val();
-        game.moveById(move);
     });
 });
 $(window).resize(function () {

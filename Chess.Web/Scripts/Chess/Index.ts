@@ -14,6 +14,8 @@ function start(userId) {
         board = new Board(canvas);
         game = new Game(board);
 
+        game.onLog(data => $("#log").append(data + " "));
+
         game.startNewGame();
         board.draw();
     }
@@ -38,12 +40,6 @@ $(function () {
             alert('Reset!');
         }
     });
-
-    $("#cmdMove").click(e => {
-        var move : string = $("#txtMove").val();
-        game.moveById(move);
-    });
-
 });
 
 $(window).resize(() => {
