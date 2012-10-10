@@ -21,26 +21,6 @@ var Game = (function () {
         var square = this._board.getSquareById(targetId);
         this.moveTo(square);
     };
-    Game.prototype.moveTo = function (square) {
-        var _this = this;
-        var currentPlayer = this._playerToPlay;
-        var nextPlayer = this._nextPlayerToPlay;
-        var piece = currentPlayer.getSelectedPiece();
-        if(piece != null && square != null) {
-            this.evaluateValidMove(piece, square, function (isValid) {
-                if(isValid) {
-                    var result = currentPlayer.move(piece, square);
-                    if(result) {
-                        _this._playerToPlay = nextPlayer;
-                        _this._nextPlayerToPlay = currentPlayer;
-                        _this.logPieceMove(piece);
-                    }
-                }
-            }, function (status) {
-                return alert(status);
-            });
-        }
-    };
     Game.prototype.action = function (x, y) {
         if(this._playerToPlay.getSelectedPiece() != null) {
             var square = this._board.getSelectedSquare(x, y);
@@ -53,17 +33,49 @@ var Game = (function () {
             this._playerToPlay.selectPiece(x, y);
         }
     };
-    Game.prototype.evaluateValidMove = function (piece, square, callback, errorCallback) {
+    Game.prototype.moveTo = function (toSquare) {
+        var _this = this;
+        var currentPlayer = this._playerToPlay;
+        var nextPlayer = this._nextPlayerToPlay;
+        var piece = currentPlayer.getSelectedPiece();
+        var fromSquare = piece.getSquare();
+        if(piece != null && toSquare != null) {
+            this.evaluateMove(piece, toSquare, function (resp) {
+                if(resp.IsValid) {
+                    currentPlayer.move(piece, toSquare);
+                    if(resp.EnPassantSquare != null) {
+                        alert(resp.EnPassantSquare);
+                    }
+                    _this._playerToPlay = nextPlayer;
+                    _this._nextPlayerToPlay = currentPlayer;
+                    _this.logPieceMove(piece, fromSquare, toSquare, resp.IsCapture);
+                }
+            }, this.logError);
+        }
+    };
+    Game.prototype.evaluateMove = function (piece, square, callback, errorCallback) {
         var request = {
-            WhitePieces: this._whitePlayer.getPiecesAsStrings(),
-            BlackPieces: this._blackPlayer.getPiecesAsStrings(),
+            Board: {
+                WhitePieces: this._whitePlayer.getPiecesAsStrings(),
+                BlackPieces: this._blackPlayer.getPiecesAsStrings()
+            },
             From: piece.getPosition(),
             To: square.getId()
         };
-        Services.ChessEngine.isValidMode(request, callback, errorCallback);
+        Services.ChessEngine.move(request, callback, errorCallback);
     };
-    Game.prototype.logPieceMove = function (piece) {
-        var text = piece.getType() + piece.getSquare().getId();
+    Game.prototype.logError = function (message) {
+        alert(message);
+    };
+    Game.prototype.logPieceMove = function (piece, from, to, isCapture) {
+        var text = piece.getType();
+        if(isCapture) {
+            if(piece.getType() == "") {
+                text += from.getId()[0];
+            }
+            text += "x";
+        }
+        text += to.getId();
         this._log.push(text);
         if(this._onLog != null) {
             this._onLog(text);

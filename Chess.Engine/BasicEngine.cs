@@ -19,7 +19,7 @@ namespace Chess.Engine
             get { return board; }
         }
 
-        public void LoadBoardFromArray(string[] whitePieces, string[] blackPieces)
+        public void LoadBoard(string[] whitePieces, string[] blackPieces)
         {
             char type, x, y;
 
@@ -74,22 +74,15 @@ namespace Chess.Engine
             }
         }
 
-        public bool Move(string from, string to)
+        public MoveEvaluation Move(string from, string to)
         {
             var piece = board[from[0], from[1]].Piece;
             if (piece != null)
             {
                 var destSquare = this.board[to[0], to[1]];
-                if (board.IsValidMove(piece, destSquare))
-                {
-                    piece.Square.Piece = null;
-                    piece.Square = destSquare;
-                    destSquare.Piece.Board = null;
-                    destSquare.Piece = piece;
-                    return true;
-                }
+                return board.GetValidMove(piece, destSquare);
             }
-            return false;
+            return null;
         }
     }
 }

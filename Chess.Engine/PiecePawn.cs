@@ -26,30 +26,36 @@ namespace Chess.Engine
             {
                 nextYIndex ++;
                 if (this.Board.IsEmptySquare(x, nextYIndex))
-                    this.AddValidMove(x, nextYIndex);
+                    this.AddValidMove(x, nextYIndex, false);
 
                 CheckForCapture(leftXIndex, rightXIndex, nextYIndex, PieceColor.Black);
 
                 if (y == '2')
                 {
-                    nextYIndex++;
-                    if (this.Board.IsEmptySquare(x, nextYIndex))
-                        this.AddValidMove(x, nextYIndex);
+                    char secondYIndex = (char)(nextYIndex + 1);
+                    if (this.Board.IsEmptySquare(x, secondYIndex))
+                    {
+                        var move = this.AddValidMove(x, secondYIndex, false);
+                        move.EnPassant = this.Board[x, nextYIndex];
+                    }
                 }
             }
             else
             {
                 nextYIndex --;
                 if (this.Board.IsEmptySquare(x, nextYIndex))
-                    this.AddValidMove(x, nextYIndex);
+                    this.AddValidMove(x, nextYIndex, false);
 
                 CheckForCapture(leftXIndex, rightXIndex, nextYIndex, PieceColor.White);
 
                 if (y == '7')
                 {
-                    nextYIndex--;
-                    if (this.Board.IsEmptySquare(x, nextYIndex))
-                        this.AddValidMove(x, nextYIndex);
+                    char secondYIndex = (char)(nextYIndex - 1);
+                    if (this.Board.IsEmptySquare(x, secondYIndex))
+                    {
+                        var move = this.AddValidMove(x, secondYIndex, false);
+                        move.EnPassant = this.Board[x, nextYIndex];
+                    }
                 }
             }
         }
@@ -58,12 +64,12 @@ namespace Chess.Engine
         {
             if (this.Board.IsOccupiedSquare(leftX, y, color))
             {
-                this.AddValidMove(leftX, y);
+                this.AddValidMove(leftX, y, true);
             }
 
             if (this.Board.IsOccupiedSquare(rightX, y, color))
             {
-                this.AddValidMove(rightX, y);
+                this.AddValidMove(rightX, y, true);
             }
         }
 

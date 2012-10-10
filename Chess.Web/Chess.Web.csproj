@@ -114,6 +114,7 @@
       <DependentUpon>ChessEngine.svc</DependentUpon>
     </Compile>
     <Compile Include="Services\MoveRequest.cs" />
+    <Compile Include="Services\MoveResponse.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />

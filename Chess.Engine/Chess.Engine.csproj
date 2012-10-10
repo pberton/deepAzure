@@ -44,6 +44,7 @@
     <Compile Include="BoardSquare.cs" />
     <Compile Include="BasicEngine.cs" />
     <Compile Include="IEngine.cs" />
+    <Compile Include="MoveEvaluation.cs" />
     <Compile Include="PieceBase.cs" />
     <Compile Include="PieceBishop.cs" />
     <Compile Include="PieceColor.cs" />

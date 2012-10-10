@@ -8,15 +8,29 @@ using System.Text;
 
 namespace Chess.Web.Services
 {
-    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "ChessEngine" in code, svc and config file together.
     public class ChessEngine : IChessEngine
     {
-        public bool IsValidMove(MoveRequest request)
+        public MoveResponse Move(MoveRequest request)
         {
             IEngine engine = new BasicEngine();
-            engine.LoadBoardFromArray(request.WhitePieces, request.BlackPieces);
+            engine.LoadBoard(request.Board.WhitePieces, request.Board.BlackPieces);
 
-            return engine.IsValidMove(request.From, request.To);
+            MoveResponse resp = new MoveResponse();
+
+            var move = engine.Move(request.From, request.To);
+            if (move != null)
+            {
+                resp.IsValid = true;
+                resp.IsCapture = move.IsCapture;
+
+                if (move.EnPassant != null)
+                    resp.EnPassantSquare = string.Concat(move.EnPassant.X, move.EnPassant.Y);
+            }
+            else
+            {
+                resp.IsValid = false;
+            }
+            return resp;
         }
     }
 }

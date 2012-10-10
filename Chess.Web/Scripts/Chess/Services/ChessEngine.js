@@ -2,20 +2,20 @@ var Services;
 (function (Services) {
     var ChessEngine = (function () {
         function ChessEngine() { }
-        ChessEngine.isValidMode = function isValidMode(request, callback, errorCallback) {
+        ChessEngine.move = function move(request, callback, errorCallback) {
             var settings = {
                 type: "POST",
                 contentType: "application/json",
                 data: JSON.stringify(request),
                 dataType: "json",
-                success: function (data, textStatus, jqXHR) {
-                    return callback(data);
+                success: function (resp, textStatus, jqXHR) {
+                    return callback(resp);
                 },
                 error: function (jqXHR, textStatus, errorThrow) {
                     return errorCallback(textStatus);
                 }
             };
-            $.ajax("/Services/ChessEngine.svc/IsValidMove", settings);
+            $.ajax("/Services/ChessEngine.svc/Move", settings);
         }
         return ChessEngine;
     })();

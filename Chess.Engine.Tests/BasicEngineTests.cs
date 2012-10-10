@@ -19,7 +19,7 @@ namespace Chess.Web.Tests
         {
             IEngine engine = new BasicEngine();
 
-            engine.LoadBoardFromArray(new string[] { "a2", "Rb2", "Nc2", "Bd2", "Qe2", "Kf2" }, null);
+            engine.LoadBoard(new string[] { "a2", "Rb2", "Nc2", "Bd2", "Qe2", "Kf2" }, null);
             AssertPieceLoaded(engine, "a2", typeof(PiecePawn), PieceColor.White);
             AssertPieceLoaded(engine, "b2", typeof(PieceRook), PieceColor.White);
             AssertPieceLoaded(engine, "c2", typeof(PieceKnight), PieceColor.White);
@@ -27,7 +27,7 @@ namespace Chess.Web.Tests
             AssertPieceLoaded(engine, "e2", typeof(PieceQueen), PieceColor.White);
             AssertPieceLoaded(engine, "f2", typeof(PieceKing), PieceColor.White);
 
-            engine.LoadBoardFromArray(null, new string[] { "a8", "Rb8", "Nc8", "Bd8", "Qe8", "Kf8" });
+            engine.LoadBoard(null, new string[] { "a8", "Rb8", "Nc8", "Bd8", "Qe8", "Kf8" });
             AssertPieceLoaded(engine, "a8", typeof(PiecePawn), PieceColor.Black);
             AssertPieceLoaded(engine, "b8", typeof(PieceRook), PieceColor.Black);
             AssertPieceLoaded(engine, "c8", typeof(PieceKnight), PieceColor.Black);

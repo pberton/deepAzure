@@ -125,5 +125,10 @@ namespace Chess.Engine
         {
             return piece.IsValidMove(destSquare);
         }
+
+        internal MoveEvaluation GetValidMove(PieceBase piece, BoardSquare destSquare)
+        {
+            return piece.GetValidMove(destSquare);
+        }
     }
 }

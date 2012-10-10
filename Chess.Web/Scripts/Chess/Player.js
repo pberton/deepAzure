@@ -61,7 +61,6 @@ var Player = (function () {
         piece.setSelected(false);
         this._board.drawSquare(originalSquare);
         this._board.drawSquare(square);
-        return true;
     };
     Player.prototype.getSelectedPiece = function () {
         var selectedPiece = null;

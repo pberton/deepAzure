@@ -10,7 +10,7 @@ namespace Chess.Engine
         public PieceColor Color { get; set; }
         public BoardSquare Square { get; set; }
         public Board Board { get; set; }
-        protected List<BoardSquare> ValidMoves = new List<BoardSquare>();
+        protected List<MoveEvaluation> ValidMoves = new List<MoveEvaluation>();
 
         public static PieceBase CreatePiece(char type, PieceColor color)
         {
@@ -31,6 +31,8 @@ namespace Chess.Engine
             }
         }
 
+        public abstract void CalculateValidMoves();
+
         public bool IsValidMove(string coord)
         {
             return IsValidMove(this.Board[coord]);
@@ -43,7 +45,7 @@ namespace Chess.Engine
 
         public bool IsValidMove(BoardSquare destSquare)
         {
-            return (ValidMoves.Contains(destSquare));
+            return (ValidMoves.Contains(new MoveEvaluation(destSquare)));
         }
 
         public int GetValidMovesCount()
@@ -51,26 +53,31 @@ namespace Chess.Engine
             return this.ValidMoves.Count;
         }
 
-        protected void AddValidMove(char x, char y)
+        protected MoveEvaluation AddValidMove(char x, char y, bool isCapture)
         {
-            this.ValidMoves.Add(this.Board[x,y]);
+            var move = new MoveEvaluation(this.Board[x, y], isCapture);
+            this.ValidMoves.Add(move);
+            return move;
         }
-
-        public abstract void CalculateValidMoves();
 
         protected bool ReadSquareMove(char x, char y)
         {
             if (this.Board.IsEmptySquare(x, y))
             {
-                this.AddValidMove(x, y);
+                this.AddValidMove(x, y, false);
                 return true;
             }
             else
             {
                 if (this.Board.IsOccupiedSquare(x, y, this.Color.Opposite()))
-                    this.AddValidMove(x, y);
+                    this.AddValidMove(x, y, true);
                 return false;
             }
+        }
+
+        public MoveEvaluation GetValidMove(BoardSquare destSquare)
+        {
+            return this.ValidMoves.Find(move => move.Equals(destSquare));
         }
     }
 

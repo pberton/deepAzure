@@ -63,7 +63,7 @@ class Player {
         }
     }
 
-    move(piece: Piece, square: BoardSquare) : bool {
+    move(piece: Piece, square: BoardSquare) : void {
         var originalSquare = piece.getSquare();
 
         var capturedPiece = square.getPiece();
@@ -77,7 +77,6 @@ class Player {
 
         this._board.drawSquare(originalSquare);
         this._board.drawSquare(square);
-        return true;
     }
 
     getSelectedPiece() : Piece {

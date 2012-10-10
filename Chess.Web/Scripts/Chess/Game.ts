@@ -43,28 +43,6 @@ class Game {
         this.moveTo(square);
     }
 
-    moveTo(square: BoardSquare) : void {
-        var currentPlayer = this._playerToPlay;
-        var nextPlayer = this._nextPlayerToPlay;
-        var piece = currentPlayer.getSelectedPiece();
-
-        if (piece != null && square != null) {
-            this.evaluateValidMove(piece, square, 
-                (isValid) => {
-                    if (isValid) {
-                        var result = currentPlayer.move(piece, square);
-                        if (result) {
-                            this._playerToPlay = nextPlayer;
-                            this._nextPlayerToPlay = currentPlayer;
-                            this.logPieceMove(piece);
-                        }
-                    }
-                },
-                status => alert(status)
-            );
-        }
-    }
-
     action(x, y) : void {
         if (this._playerToPlay.getSelectedPiece() != null) {
             var square = this._board.getSelectedSquare(x, y);
@@ -79,17 +57,59 @@ class Game {
             this._playerToPlay.selectPiece(x, y);
         }
     }
+    
+    moveTo(toSquare: BoardSquare) : void {
+        var currentPlayer = this._playerToPlay;
+        var nextPlayer = this._nextPlayerToPlay;
+        var piece = currentPlayer.getSelectedPiece();
+        var fromSquare = piece.getSquare();
 
-    private evaluateValidMove(piece: Piece, square: BoardSquare, callback : (isValid: bool) => void, errorCallback : (status: string) => void) : void {
-        var request : Services.IMoveRequest = {
-            WhitePieces: this._whitePlayer.getPiecesAsStrings(), BlackPieces: this._blackPlayer.getPiecesAsStrings(),
-            From: piece.getPosition(), To: square.getId()
+        if (piece != null && toSquare != null) {
+            this.evaluateMove(piece, toSquare, 
+                (resp) => {
+                    if (resp.IsValid) {
+                        currentPlayer.move(piece, toSquare);
+                        
+                        if (resp.EnPassantSquare != null)
+                            alert(resp.EnPassantSquare);
+
+                        this._playerToPlay = nextPlayer;
+                        this._nextPlayerToPlay = currentPlayer;
+                        
+                        this.logPieceMove(piece, fromSquare, toSquare, resp.IsCapture);
+                    }
+                },
+                this.logError
+            );
         }
-        Services.ChessEngine.isValidMode(request,callback,errorCallback);
     }
 
-    private logPieceMove(piece: Piece) : void {
-        var text = piece.getType() + piece.getSquare().getId();
+    private evaluateMove(piece: Piece, square: BoardSquare, callback: (resp: Services.IMoveResponse) => void , errorCallback: (status: string) => void ): void {
+        var request: Services.IMoveRequest = {
+            Board: {
+                WhitePieces: this._whitePlayer.getPiecesAsStrings(),
+                BlackPieces: this._blackPlayer.getPiecesAsStrings()
+            },
+            From: piece.getPosition(),
+            To: square.getId()
+        }
+        Services.ChessEngine.move(request,callback,errorCallback);
+    }
+
+    private logError(message: string): void
+    { 
+        alert(message);
+    }
+
+    private logPieceMove(piece: Piece, from: BoardSquare, to: BoardSquare, isCapture: bool) : void {
+        var text = piece.getType();
+        if (isCapture) {
+            if (piece.getType() == "")
+                text += from.getId()[0];
+            text += "x";
+        }
+        text += to.getId();
+        
         this._log.push(text);
 
         if (this._onLog!=null)

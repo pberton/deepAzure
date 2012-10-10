@@ -12,6 +12,6 @@ namespace Chess.Web.Services
     public interface IChessEngine
     {
         [OperationContract, WebInvoke(Method = "POST")]
-        bool IsValidMove(MoveRequest request);
+        MoveResponse Move(MoveRequest request);
     }
 }

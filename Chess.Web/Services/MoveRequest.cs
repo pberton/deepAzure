@@ -7,15 +7,25 @@ using System.Web;
 namespace Chess.Web.Services
 {
     [DataContract]
-    public class MoveRequest
+    public struct MoveRequest
     {
-        [DataMember] 
-        public string[] WhitePieces {get; set; }
         [DataMember]
-        public string[] BlackPieces { get; set; }
+        public BoardData Board;
+
         [DataMember] 
         public string From { get; set; }
         [DataMember] 
         public string To { get; set; }
+
+
+        [DataContract]
+        public struct BoardData
+        {
+            [DataMember]
+            public string[] WhitePieces { get; set; }
+            [DataMember]
+            public string[] BlackPieces { get; set; }
+        }
     }
+
 }
