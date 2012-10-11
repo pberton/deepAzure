@@ -66,11 +66,6 @@ class Player {
     move(piece: Piece, square: BoardSquare) : void {
         var originalSquare = piece.getSquare();
 
-        var capturedPiece = square.getPiece();
-        if (capturedPiece != null) {
-            capturedPiece.setSquare(null);
-        }
-
         piece.setSquare(square);
         originalSquare.setSelected(false);
         piece.setSelected(false);

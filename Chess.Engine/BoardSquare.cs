@@ -36,5 +36,9 @@ namespace Chess.Engine
             return x * 100 + y;
         }
 
+        public override string ToString()
+        {
+            return string.Concat(this.X, this.Y);
+        }
     }
 }

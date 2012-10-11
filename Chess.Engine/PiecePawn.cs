@@ -71,6 +71,20 @@ namespace Chess.Engine
             {
                 this.AddValidMove(rightX, y, true);
             }
+
+            // En Passant
+            if (this.Board.EnPassantSquare != null)
+            {
+                if (this.Board.EnPassantSquare.X == leftX && this.Board.EnPassantSquare.Y == y)
+                {
+                    this.AddValidMove(leftX, y, true, this.Board[leftX, this.Square.Y].Piece);
+                }
+
+                if (this.Board.EnPassantSquare.X == rightX && this.Board.EnPassantSquare.Y == y)
+                {
+                    this.AddValidMove(rightX, y, true, this.Board[rightX, this.Square.Y].Piece);
+                }
+            }
         }
 
     }

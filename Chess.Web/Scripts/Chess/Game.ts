@@ -59,19 +59,35 @@ class Game {
     }
     
     moveTo(toSquare: BoardSquare) : void {
-        var currentPlayer = this._playerToPlay;
-        var nextPlayer = this._nextPlayerToPlay;
-        var piece = currentPlayer.getSelectedPiece();
-        var fromSquare = piece.getSquare();
+        var currentPlayer : Player = this._playerToPlay;
+        var nextPlayer : Player = this._nextPlayerToPlay;
+        var piece : Piece = currentPlayer.getSelectedPiece();
+        var fromSquare : BoardSquare = piece.getSquare();
 
         if (piece != null && toSquare != null) {
-            this.evaluateMove(piece, toSquare, 
+            this.evaluateMove(currentPlayer, piece, toSquare, 
                 (resp) => {
                     if (resp.IsValid) {
+                        
+                        if (resp.IsCapture && resp.CapturedPieceSquare != null) {
+                            var capturedSquare : BoardSquare = this._board.getSquareById(resp.CapturedPieceSquare);
+                            var capturedPiece : Piece = capturedSquare.getPiece();
+                            if (capturedPiece != null) {
+                                capturedPiece.setSquare(null);
+                                capturedSquare.setPiece(null);
+                                this._board.drawSquare(capturedSquare);
+                            }
+                        }
+
                         currentPlayer.move(piece, toSquare);
                         
-                        if (resp.EnPassantSquare != null)
-                            alert(resp.EnPassantSquare);
+                        if (resp.EnPassantSquare != null) {
+                            var enPassantSquare = this._board.getSquareById(resp.EnPassantSquare);
+                            this._board.setEnPassantSquare(enPassantSquare);
+                        }
+                        else {
+                            this._board.setEnPassantSquare(null);
+                        }
 
                         this._playerToPlay = nextPlayer;
                         this._nextPlayerToPlay = currentPlayer;
@@ -84,12 +100,14 @@ class Game {
         }
     }
 
-    private evaluateMove(piece: Piece, square: BoardSquare, callback: (resp: Services.IMoveResponse) => void , errorCallback: (status: string) => void ): void {
+    private evaluateMove(player: Player, piece: Piece, square: BoardSquare, callback: (resp: Services.IMoveResponse) => void , errorCallback: (status: string) => void ): void {
         var request: Services.IMoveRequest = {
             Board: {
                 WhitePieces: this._whitePlayer.getPiecesAsStrings(),
-                BlackPieces: this._blackPlayer.getPiecesAsStrings()
+                BlackPieces: this._blackPlayer.getPiecesAsStrings(),
+                EnPassantSquare: this._board.getEnPassantSquare() != null ? this._board.getEnPassantSquare().getId() : null
             },
+            PlayerColor: player.getId(),
             From: piece.getPosition(),
             To: square.getId()
         }

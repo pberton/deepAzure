@@ -52,10 +52,6 @@ var Player = (function () {
     };
     Player.prototype.move = function (piece, square) {
         var originalSquare = piece.getSquare();
-        var capturedPiece = square.getPiece();
-        if(capturedPiece != null) {
-            capturedPiece.setSquare(null);
-        }
         piece.setSquare(square);
         originalSquare.setSelected(false);
         piece.setSelected(false);

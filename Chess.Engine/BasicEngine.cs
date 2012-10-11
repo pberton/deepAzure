@@ -19,7 +19,7 @@ namespace Chess.Engine
             get { return board; }
         }
 
-        public void LoadBoard(string[] whitePieces, string[] blackPieces)
+        public void LoadBoard(string[] whitePieces, string[] blackPieces, string enPassantSquare)
         {
             char type, x, y;
 
@@ -41,7 +41,13 @@ namespace Chess.Engine
                 }
             }
 
-            board.CalculateValidMoves();
+            if (!string.IsNullOrEmpty(enPassantSquare))
+                board.EnPassantSquare = board[enPassantSquare[0], enPassantSquare[1]];
+        }
+
+        public void CalculateValidMoves(PieceColor playerColor)
+        {
+            board.CalculateValidMoves(playerColor);
         }
 
         private void ReadPieceData(string pieceText, out char type, out char x, out char y)

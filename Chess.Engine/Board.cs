@@ -17,6 +17,8 @@ namespace Chess.Engine
         // a1 ... h1
         Dictionary<int, BoardSquare> squares;
 
+        public BoardSquare EnPassantSquare { get; set; }
+
         /// <summary>
         /// Board constructor
         /// </summary>
@@ -81,12 +83,13 @@ namespace Chess.Engine
             get { return this[coord[0], coord[1]]; }
         }
 
-        public void CalculateValidMoves()
+        public void CalculateValidMoves(PieceColor playerColor)
         {
             // TODO: Parallel.ForEach<PieceBase>(this.Pieces, p => p.CalculateValidMoves());
             foreach (PieceBase piece in this.Pieces)
             {
-                piece.CalculateValidMoves();
+                if (piece.Color == playerColor)
+                    piece.CalculateValidMoves();
             }
         }
 

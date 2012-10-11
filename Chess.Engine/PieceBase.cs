@@ -53,9 +53,18 @@ namespace Chess.Engine
             return this.ValidMoves.Count;
         }
 
-        protected MoveEvaluation AddValidMove(char x, char y, bool isCapture)
+        protected MoveEvaluation AddValidMove(char x, char y, bool isCapture, PieceBase pieceCapture = null)
         {
-            var move = new MoveEvaluation(this.Board[x, y], isCapture);
+            BoardSquare square = this.Board[x, y];
+            PieceBase capture = null;
+            if (isCapture)
+            {
+                if (pieceCapture == null)
+                    capture = square.Piece;
+                else
+                    capture = pieceCapture;
+            }
+            var move = new MoveEvaluation(this.Board[x, y], isCapture, capture);
             this.ValidMoves.Add(move);
             return move;
         }

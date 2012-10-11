@@ -22,6 +22,12 @@ var Board = (function () {
     Board.getSquareId = function getSquareId(i, j) {
         return String.fromCharCode(97 + i) + ((j - 8) * -1);
     }
+    Board.prototype.getEnPassantSquare = function () {
+        return this._enPassantSquare;
+    };
+    Board.prototype.setEnPassantSquare = function (square) {
+        this._enPassantSquare = square;
+    };
     Board.prototype.getSquares = function () {
         return this._squares;
     };

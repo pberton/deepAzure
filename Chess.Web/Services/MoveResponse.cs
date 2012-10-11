@@ -17,5 +17,9 @@ namespace Chess.Web.Services
 
         [DataMember]
         public string EnPassantSquare;
+
+        [DataMember]
+        public string CapturedPieceSquare { get; set; }
+            
     }
 }

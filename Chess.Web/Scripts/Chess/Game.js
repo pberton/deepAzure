@@ -40,11 +40,23 @@ var Game = (function () {
         var piece = currentPlayer.getSelectedPiece();
         var fromSquare = piece.getSquare();
         if(piece != null && toSquare != null) {
-            this.evaluateMove(piece, toSquare, function (resp) {
+            this.evaluateMove(currentPlayer, piece, toSquare, function (resp) {
                 if(resp.IsValid) {
+                    if(resp.IsCapture && resp.CapturedPieceSquare != null) {
+                        var capturedSquare = _this._board.getSquareById(resp.CapturedPieceSquare);
+                        var capturedPiece = capturedSquare.getPiece();
+                        if(capturedPiece != null) {
+                            capturedPiece.setSquare(null);
+                            capturedSquare.setPiece(null);
+                            _this._board.drawSquare(capturedSquare);
+                        }
+                    }
                     currentPlayer.move(piece, toSquare);
                     if(resp.EnPassantSquare != null) {
-                        alert(resp.EnPassantSquare);
+                        var enPassantSquare = _this._board.getSquareById(resp.EnPassantSquare);
+                        _this._board.setEnPassantSquare(enPassantSquare);
+                    } else {
+                        _this._board.setEnPassantSquare(null);
                     }
                     _this._playerToPlay = nextPlayer;
                     _this._nextPlayerToPlay = currentPlayer;
@@ -53,12 +65,14 @@ var Game = (function () {
             }, this.logError);
         }
     };
-    Game.prototype.evaluateMove = function (piece, square, callback, errorCallback) {
+    Game.prototype.evaluateMove = function (player, piece, square, callback, errorCallback) {
         var request = {
             Board: {
                 WhitePieces: this._whitePlayer.getPiecesAsStrings(),
-                BlackPieces: this._blackPlayer.getPiecesAsStrings()
+                BlackPieces: this._blackPlayer.getPiecesAsStrings(),
+                EnPassantSquare: this._board.getEnPassantSquare() != null ? this._board.getEnPassantSquare().getId() : null
             },
+            PlayerColor: player.getId(),
             From: piece.getPosition(),
             To: square.getId()
         };

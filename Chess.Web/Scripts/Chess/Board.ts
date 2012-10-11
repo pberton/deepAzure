@@ -12,6 +12,7 @@ class Board {
     private _squares: BoardSquare[] = new BoardSquare[]();
     private _scaleRatio: number = 1;
     private _canvasSize: number;
+    private _enPassantSquare: BoardSquare;
 
     constructor (canvas: HTMLCanvasElement) {
         this._canvas = canvas;
@@ -31,6 +32,14 @@ class Board {
 
     static getSquareId(i: number, j: number): string {
         return String.fromCharCode(97 + i) + ((j - 8) * -1)
+    }
+
+    getEnPassantSquare(): BoardSquare {
+        return this._enPassantSquare;
+    }
+
+    setEnPassantSquare(square: BoardSquare): void {
+        this._enPassantSquare = square;
     }
 
     getSquares(): BoardSquare[] {

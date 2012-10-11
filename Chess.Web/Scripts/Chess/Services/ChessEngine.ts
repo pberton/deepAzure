@@ -19,7 +19,9 @@ module Services {
         Board: {
             WhitePieces: string[];
             BlackPieces: string[];
+            EnPassantSquare: string;
         };
+        PlayerColor: number;
         From: string;
         To: string;
     }
@@ -27,5 +29,6 @@ module Services {
         IsValid: bool;
         IsCapture: bool;
         EnPassantSquare: string;
+        CapturedPieceSquare: string;
     }
 }

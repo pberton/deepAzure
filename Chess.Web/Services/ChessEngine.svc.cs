@@ -13,7 +13,9 @@ namespace Chess.Web.Services
         public MoveResponse Move(MoveRequest request)
         {
             IEngine engine = new BasicEngine();
-            engine.LoadBoard(request.Board.WhitePieces, request.Board.BlackPieces);
+            engine.LoadBoard(request.Board.WhitePieces, request.Board.BlackPieces, request.Board.EnPassantSquare);
+
+            engine.CalculateValidMoves((PieceColor)request.PlayerColor);
 
             MoveResponse resp = new MoveResponse();
 
@@ -22,9 +24,12 @@ namespace Chess.Web.Services
             {
                 resp.IsValid = true;
                 resp.IsCapture = move.IsCapture;
+                
+                if (move.CapturedPiece != null)
+                    resp.CapturedPieceSquare = move.CapturedPiece.Square.ToString();
 
                 if (move.EnPassant != null)
-                    resp.EnPassantSquare = string.Concat(move.EnPassant.X, move.EnPassant.Y);
+                    resp.EnPassantSquare = move.EnPassant.ToString();
             }
             else
             {

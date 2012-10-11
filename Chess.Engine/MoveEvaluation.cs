@@ -10,16 +10,18 @@ namespace Chess.Engine
         public BoardSquare Square { get; private set; }
         public bool IsCapture { get; private set; }
         public BoardSquare EnPassant { get; set; }
+        public PieceBase CapturedPiece { get; private set; }
 
         public MoveEvaluation(BoardSquare square)
         {
             this.Square = square;
         }
 
-        public MoveEvaluation(BoardSquare square, bool isCapture): this(square)
+        public MoveEvaluation(BoardSquare square, bool isCapture, PieceBase capturedPiece): this(square)
         {
             this.Square= square;
             this.IsCapture = isCapture;
+            this.CapturedPiece = capturedPiece;
         }
 
         public override bool Equals(object obj)
