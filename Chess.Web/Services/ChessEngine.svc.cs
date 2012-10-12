@@ -30,6 +30,8 @@ namespace Chess.Web.Services
 
                 if (move.EnPassant != null)
                     resp.EnPassantSquare = move.EnPassant.ToString();
+
+                resp.IsPromotion = move.IsPromotion;
             }
             else
             {

@@ -13,6 +13,9 @@ var Piece = (function () {
     Piece.prototype.getType = function () {
         return this._type;
     };
+    Piece.prototype.changeType = function (newType) {
+        this._type = newType;
+    };
     Piece.prototype.getSquare = function () {
         return this._square;
     };

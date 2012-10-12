@@ -11,15 +11,14 @@ namespace Chess.Web.Services
     {
         [DataMember]
         public bool IsValid;
-
         [DataMember]
         public bool IsCapture;
-
         [DataMember]
         public string EnPassantSquare;
-
         [DataMember]
         public string CapturedPieceSquare { get; set; }
+        [DataMember]
+        public bool IsPromotion;
             
     }
 }

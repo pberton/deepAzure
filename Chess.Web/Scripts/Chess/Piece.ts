@@ -27,6 +27,10 @@ class Piece {
         return this._type;
     };
 
+    changeType(newType: string): void{
+        this._type = newType;
+    };
+
     getSquare(): BoardSquare {
         return this._square;
     };

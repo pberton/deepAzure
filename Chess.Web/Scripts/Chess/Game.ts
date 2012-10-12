@@ -78,6 +78,11 @@ class Game {
                                 this._board.drawSquare(capturedSquare);
                             }
                         }
+                        
+                        if (resp.IsPromotion)
+                        { 
+                            piece.changeType('Q');
+                        }
 
                         currentPlayer.move(piece, toSquare);
                         

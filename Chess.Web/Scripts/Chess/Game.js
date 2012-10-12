@@ -51,6 +51,9 @@ var Game = (function () {
                             _this._board.drawSquare(capturedSquare);
                         }
                     }
+                    if(resp.IsPromotion) {
+                        piece.changeType('Q');
+                    }
                     currentPlayer.move(piece, toSquare);
                     if(resp.EnPassantSquare != null) {
                         var enPassantSquare = _this._board.getSquareById(resp.EnPassantSquare);

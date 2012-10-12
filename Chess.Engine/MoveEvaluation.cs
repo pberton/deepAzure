@@ -11,6 +11,7 @@ namespace Chess.Engine
         public bool IsCapture { get; private set; }
         public BoardSquare EnPassant { get; set; }
         public PieceBase CapturedPiece { get; private set; }
+        public bool IsPromotion { get; set; }
 
         public MoveEvaluation(BoardSquare square)
         {

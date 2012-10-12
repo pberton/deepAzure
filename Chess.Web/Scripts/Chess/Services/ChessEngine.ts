@@ -30,5 +30,6 @@ module Services {
         IsCapture: bool;
         EnPassantSquare: string;
         CapturedPieceSquare: string;
+        IsPromotion: bool;
     }
 }

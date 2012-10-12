@@ -58,6 +58,18 @@ namespace Chess.Engine
                     }
                 }
             }
+
+            CheckPromotion();
+        }
+
+        private void CheckPromotion()
+        {
+            char promotionY = this.Color == PieceColor.White ? '8' : '1';
+            foreach (var move in this.ValidMoves)
+            {
+                if (move.Square.Y == promotionY)
+                    move.IsPromotion = true;
+            }
         }
 
         private void CheckForCapture(char leftX, char rightX, char y, PieceColor color)
