@@ -13,7 +13,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Chess.Web</RootNamespace>
     <AssemblyName>Chess.Web</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <RestorePackages>true</RestorePackages>
@@ -119,7 +119,6 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="readme.html" />
     <TypeScriptCompile Include="Scripts\Chess\Board.ts" />
     <Content Include="Scripts\Chess\Board.js">
       <DependentUpon>Board.ts</DependentUpon>
