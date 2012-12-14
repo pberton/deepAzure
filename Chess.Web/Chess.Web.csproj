@@ -124,28 +124,49 @@
       <DependentUpon>Board.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="Scripts\Chess\BoardSquare.ts" />
+    <Content Include="Scripts\Chess\Board.min.js">
+      <DependentUpon>Board.ts</DependentUpon>
+    </Content>
     <Content Include="Scripts\Chess\BoardSquare.js">
       <DependentUpon>BoardSquare.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="Scripts\Chess\Game.ts" />
+    <Content Include="Scripts\Chess\BoardSquare.min.js">
+      <DependentUpon>BoardSquare.ts</DependentUpon>
+    </Content>
     <Content Include="Scripts\Chess\Game.js">
       <DependentUpon>Game.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="Scripts\Chess\Index.ts" />
+    <Content Include="Scripts\Chess\Game.min.js">
+      <DependentUpon>Game.ts</DependentUpon>
+    </Content>
     <Content Include="Scripts\Chess\Index.js">
       <DependentUpon>Index.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="Scripts\Chess\Piece.ts" />
+    <Content Include="Scripts\Chess\Index.min.js">
+      <DependentUpon>Index.ts</DependentUpon>
+    </Content>
     <Content Include="Scripts\Chess\Piece.js">
       <DependentUpon>Piece.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="Scripts\Chess\Player.ts" />
+    <Content Include="Scripts\Chess\Piece.min.js">
+      <DependentUpon>Piece.ts</DependentUpon>
+    </Content>
     <Content Include="Scripts\Chess\Player.js">
       <DependentUpon>Player.ts</DependentUpon>
     </Content>
-    <None Include="Scripts\jquery-1.8.2.intellisense.js" />
-    <Content Include="Scripts\jquery-1.8.2.js" />
-    <Content Include="Scripts\jquery-1.8.2.min.js" />
+    <None Include="Scripts\jquery-1.8.3.intellisense.js" />
+    <Content Include="Scripts\Chess\Player.min.js">
+      <DependentUpon>Player.ts</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Chess\Services\ChessEngine.min.js">
+      <DependentUpon>ChessEngine.ts</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery-1.8.3.js" />
+    <Content Include="Scripts\jquery-1.8.3.min.js" />
     <Content Include="Scripts\jquery.d.ts" />
     <TypeScriptCompile Include="Scripts\Chess\Services\ChessEngine.ts" />
     <Content Include="Scripts\Chess\Services\ChessEngine.js">
@@ -200,7 +221,6 @@
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <Target Name="BeforeBuild">
-    <Exec Command="&quot;$(PROGRAMFILES)\Microsoft SDKs\TypeScript\0.8.0.0\tsc&quot; @(TypeScriptCompile ->'&quot;%(fullpath)&quot;', ' ')" />
   </Target>
   <Target Name="AfterBuild">
   </Target>

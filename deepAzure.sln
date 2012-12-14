@@ -12,6 +12,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C7818150-A3D2-4E95-AE2C-A8E8E9C2B18E}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
+		WE-settings.xml = WE-settings.xml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{3D181866-F4B4-4BFA-931D-A151B3D30E92}"

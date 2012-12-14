@@ -18,7 +18,7 @@ class BoardSquare {
         this._selected = false;
 
         this._piece = null;
-    }
+    } 
     getX(): number
     {
         return this._x;

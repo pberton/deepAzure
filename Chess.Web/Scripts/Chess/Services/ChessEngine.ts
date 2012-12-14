@@ -2,7 +2,7 @@
 
 module Services {
     export class ChessEngine {
-        static move(request : IMoveRequest, callback : (isValid: IMoveResponse) => void, errorCallback : (status: string) => void) : void {
+        static move(request: IMoveRequest, callback: (isValid: IMoveResponse) => void , errorCallback: (status: string) => void ): void {
             var settings: JQueryAjaxSettings = {
                 type: "POST",
                 contentType: "application/json",
@@ -13,7 +13,7 @@ module Services {
             }
 
             $.ajax("/Services/ChessEngine.svc/Move", settings);
-        }
+        };
     }
     export interface IMoveRequest {
         Board: {
@@ -24,7 +24,7 @@ module Services {
         PlayerColor: number;
         From: string;
         To: string;
-    }
+    } 
     export interface IMoveResponse {
         IsValid: bool;
         IsCapture: bool;
