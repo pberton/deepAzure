@@ -2,7 +2,7 @@
 ///<reference path='BoardSquare.ts' />
 
 class Board {
-    static DarkColor: string = "#A8864A";
+    static DarkColor: string = "#A8864B";
     static LightColor: string = "#F0E0C5";
     static SelectedColor: string = "#7E1BE0";
     static SquareSize: number = 45;

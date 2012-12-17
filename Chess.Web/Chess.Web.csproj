@@ -46,6 +46,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Antlr3.Runtime">
+      <HintPath>..\packages\WebGrease.1.1.0\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
@@ -91,6 +94,9 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.0.0\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.20715.0\lib\net40\System.Web.Razor.dll</HintPath>
@@ -111,8 +117,12 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebGrease">
+      <HintPath>..\packages\WebGrease.1.1.0\lib\WebGrease.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -137,47 +147,26 @@
       <DependentUpon>Board.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="Scripts\Chess\BoardSquare.ts" />
-    <Content Include="Scripts\Chess\Board.min.js">
-      <DependentUpon>Board.ts</DependentUpon>
-    </Content>
     <Content Include="Scripts\Chess\BoardSquare.js">
       <DependentUpon>BoardSquare.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="Scripts\Chess\Game.ts" />
-    <Content Include="Scripts\Chess\BoardSquare.min.js">
-      <DependentUpon>BoardSquare.ts</DependentUpon>
-    </Content>
     <Content Include="Scripts\Chess\Game.js">
       <DependentUpon>Game.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="Scripts\Chess\Index.ts" />
-    <Content Include="Scripts\Chess\Game.min.js">
-      <DependentUpon>Game.ts</DependentUpon>
-    </Content>
     <Content Include="Scripts\Chess\Index.js">
       <DependentUpon>Index.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="Scripts\Chess\Piece.ts" />
-    <Content Include="Scripts\Chess\Index.min.js">
-      <DependentUpon>Index.ts</DependentUpon>
-    </Content>
     <Content Include="Scripts\Chess\Piece.js">
       <DependentUpon>Piece.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="Scripts\Chess\Player.ts" />
-    <Content Include="Scripts\Chess\Piece.min.js">
-      <DependentUpon>Piece.ts</DependentUpon>
-    </Content>
     <Content Include="Scripts\Chess\Player.js">
       <DependentUpon>Player.ts</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.8.3.intellisense.js" />
-    <Content Include="Scripts\Chess\Player.min.js">
-      <DependentUpon>Player.ts</DependentUpon>
-    </Content>
-    <Content Include="Scripts\Chess\Services\ChessEngine.min.js">
-      <DependentUpon>ChessEngine.ts</DependentUpon>
-    </Content>
     <Content Include="Scripts\jquery-1.8.3.js" />
     <Content Include="Scripts\jquery-1.8.3.min.js" />
     <Content Include="Scripts\jquery.d.ts" />

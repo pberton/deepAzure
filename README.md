@@ -25,7 +25,8 @@ Keywords:
 	- TypeScript
 	- JQuery
 	- WCF JSON Services
-	- MVC 3
+	- MVC 4
+	- Microsoft Web Optimization
 	- Razor
 	- C# 
 	- Chess Engine

@@ -15,7 +15,7 @@ var Board = (function () {
             }
         }
     }
-    Board.DarkColor = "#A8864A";
+    Board.DarkColor = "#A8864B";
     Board.LightColor = "#F0E0C5";
     Board.SelectedColor = "#7E1BE0";
     Board.SquareSize = 45;
