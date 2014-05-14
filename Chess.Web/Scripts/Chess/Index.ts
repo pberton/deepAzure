@@ -1,4 +1,4 @@
-///<reference path='../jquery.d.ts' />
+///<reference path='../typings/jquery/jquery.d.ts' />
 ///<reference path='Game.ts' />
 ///<reference path='Board.ts' />
 
@@ -29,8 +29,9 @@ $(function () {
     start(null);
 
     $("#board").click(e => {
-        var x =  (e.pageX - $(e.srcElement).position().left); // offsetX
-        var y = (e.pageY - $(e.srcElement).position().top); // offsetY
+        var position = $(this).position();
+        var x = (e.pageX - position.left); // offsetX
+        var y = (e.pageY - position.top); // offsetY
         game.action(x, y);
     });
 

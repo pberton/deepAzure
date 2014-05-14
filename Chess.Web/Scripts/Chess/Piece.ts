@@ -9,7 +9,7 @@ class Piece {
     private _player: Player;
     private _type: string;
     private _square: BoardSquare;
-    private _selected: bool;
+    private _selected: boolean;
 
     constructor (player: Player, type: string) {
         this._player = player;
@@ -25,15 +25,15 @@ class Piece {
     // K for king, Q for queen, R for rook, B for bishop, and N for knight, "" for pawn
     getType(): string {
         return this._type;
-    };
+    }
 
     changeType(newType: string): void{
         this._type = newType;
-    };
+    }
 
     getSquare(): BoardSquare {
         return this._square;
-    };
+    }
 
     setSquare(square: BoardSquare) : void {
         if (this._square != null)
@@ -41,19 +41,19 @@ class Piece {
         this._square = square;
         if (square!=null)
             square.setPiece(this);
-    };
+    }
 
     getPosition(): string {
         return this._square.getId();
-    };
+    }
 
-    getSelected(): bool {
+    getSelected(): boolean {
         return this._selected;
     }
 
-    setSelected(val: bool) {
+    setSelected(val: boolean) {
         this._selected = val;
-    };
+    }
 
     // K for king, Q for queen, R for rook, B for bishop, and N for knight, "" for pawn
     draw(ctx: CanvasRenderingContext2D, x : number, y : number) : void {

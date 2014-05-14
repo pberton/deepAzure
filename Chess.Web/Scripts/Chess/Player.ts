@@ -38,8 +38,8 @@ class Player {
             this.setPiece("R", "a8");
             this.setPiece("N", "b8");
             this.setPiece("B", "c8");
-            this.setPiece("K", "d8");
-            this.setPiece("Q", "e8");
+            this.setPiece("Q", "d8");
+            this.setPiece("K", "e8");
             this.setPiece("B", "f8");
             this.setPiece("N", "g8");
             this.setPiece("R", "h8");
@@ -102,8 +102,8 @@ class Player {
         }
     }
 
-    getPiecesAsStrings(): string[] {
-        var piecesAsString: string[] = new string[];
+    getPiecesAsStrings(): Array<string> {
+        var piecesAsString: Array<string> = new Array <string>();
         $.each(this.getPieces(), (index: number, piece: Piece) => {
             var str = piece.getType() + piece.getPosition();
             piecesAsString.push(str);
@@ -111,8 +111,8 @@ class Player {
         return piecesAsString;
     }
     
-    getPieces(): Piece[] {
-        var pieces: Piece[] = new Piece[];
+    getPieces(): Array<Piece> {
+        var pieces: Array<Piece> = new Array<Piece>();
         $.each(this._board.getSquares(), (index: number, square: BoardSquare) => {
             var piece = square.getPiece();
             if (piece!= null && piece.getPlayer() == this)

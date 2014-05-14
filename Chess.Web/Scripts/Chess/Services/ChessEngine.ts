@@ -1,4 +1,4 @@
-///<reference path='../../jquery.d.ts' />
+///<reference path='../../typings/jquery/jquery.d.ts' />
 
 module Services {
     export class ChessEngine {
@@ -9,11 +9,11 @@ module Services {
                 data: JSON.stringify(request),
                 dataType: "json",
                 success: (resp, textStatus, jqXHR) => callback(<IMoveResponse>resp),
-                error: (jqXHR, textStatus, errorThrow) => errorCallback(textStatus);
+                error: (jqXHR, textStatus, errorThrow) => errorCallback(textStatus)
             }
 
             $.ajax("/Services/ChessEngine.svc/Move", settings);
-        };
+        }
     }
     export interface IMoveRequest {
         Board: {
@@ -26,10 +26,10 @@ module Services {
         To: string;
     } 
     export interface IMoveResponse {
-        IsValid: bool;
-        IsCapture: bool;
+        IsValid: boolean;
+        IsCapture: boolean;
         EnPassantSquare: string;
         CapturedPieceSquare: string;
-        IsPromotion: bool;
+        IsPromotion: boolean;
     }
 }

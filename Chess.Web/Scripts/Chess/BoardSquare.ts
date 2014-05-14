@@ -1,4 +1,4 @@
-///<reference path='Piece.ts' />
+///<reference path='../typings/jquery/jquery.d.ts' />
 
 class BoardSquare {
     private _id: string;
@@ -6,7 +6,7 @@ class BoardSquare {
     private _y: number;
     private _length: number;
     private _fillStyle: string;
-    private _selected: bool;
+    private _selected: boolean;
     private _piece: Piece;
 
     constructor (id: string, positionX: number, positionY: number, length: number, fillStyle: string) {
@@ -27,10 +27,10 @@ class BoardSquare {
     {
         return this._y;
     }
-    getSelected(): bool {
+    getSelected(): boolean {
         return this._selected;
     }
-    setSelected(val: bool) {
+    setSelected(val: boolean) {
         this._selected = val;
     }
     getId() : string {

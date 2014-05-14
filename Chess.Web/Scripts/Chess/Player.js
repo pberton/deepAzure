@@ -28,8 +28,8 @@ var Player = (function () {
             this.setPiece("R", "a8");
             this.setPiece("N", "b8");
             this.setPiece("B", "c8");
-            this.setPiece("K", "d8");
-            this.setPiece("Q", "e8");
+            this.setPiece("Q", "d8");
+            this.setPiece("K", "e8");
             this.setPiece("B", "f8");
             this.setPiece("N", "g8");
             this.setPiece("R", "h8");

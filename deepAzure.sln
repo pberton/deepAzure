@@ -1,14 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chess.Web", "Chess.Web\Chess.Web.csproj", "{32C6CB18-049D-4A83-890E-FE6402813916}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chess.Web.Tests", "Chess.Web.Tests\Chess.Web.Tests.csproj", "{31795751-43E4-4CEB-BCFA-FA8506D977AD}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chess.Engine", "Chess.Engine\Chess.Engine.csproj", "{3FB75673-99F4-491F-A537-2BCCD9421590}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chess.Engine.Tests", "Chess.Engine.Tests\Chess.Engine.Tests.csproj", "{C08494B3-2793-4DBF-AF02-3EB745E0185E}"
-EndProject
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C7818150-A3D2-4E95-AE2C-A8E8E9C2B18E}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
@@ -22,6 +16,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{3D1818
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chess.Web", "Chess.Web\Chess.Web.csproj", "{32C6CB18-049D-4A83-890E-FE6402813916}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chess.Engine", "Chess.Engine\Chess.Engine.csproj", "{3FB75673-99F4-491F-A537-2BCCD9421590}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chess.Engine.Tests", "Chess.Engine.Tests\Chess.Engine.Tests.csproj", "{C08494B3-2793-4DBF-AF02-3EB745E0185E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chess.Web.Tests", "Chess.Web.Tests\Chess.Web.Tests.csproj", "{31795751-43E4-4CEB-BCFA-FA8506D977AD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,10 +34,6 @@ Global
 		{32C6CB18-049D-4A83-890E-FE6402813916}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32C6CB18-049D-4A83-890E-FE6402813916}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{32C6CB18-049D-4A83-890E-FE6402813916}.Release|Any CPU.Build.0 = Release|Any CPU
-		{31795751-43E4-4CEB-BCFA-FA8506D977AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{31795751-43E4-4CEB-BCFA-FA8506D977AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{31795751-43E4-4CEB-BCFA-FA8506D977AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{31795751-43E4-4CEB-BCFA-FA8506D977AD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3FB75673-99F4-491F-A537-2BCCD9421590}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3FB75673-99F4-491F-A537-2BCCD9421590}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3FB75673-99F4-491F-A537-2BCCD9421590}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -44,6 +42,10 @@ Global
 		{C08494B3-2793-4DBF-AF02-3EB745E0185E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C08494B3-2793-4DBF-AF02-3EB745E0185E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C08494B3-2793-4DBF-AF02-3EB745E0185E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31795751-43E4-4CEB-BCFA-FA8506D977AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31795751-43E4-4CEB-BCFA-FA8506D977AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31795751-43E4-4CEB-BCFA-FA8506D977AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31795751-43E4-4CEB-BCFA-FA8506D977AD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

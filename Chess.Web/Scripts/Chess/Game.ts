@@ -1,4 +1,4 @@
-///<reference path='../jquery.d.ts' />
+///<reference path='../typings/jquery/jquery.d.ts' />
 ///<reference path='Board.ts' />
 ///<reference path='Services/ChessEngine.ts' />
 
@@ -29,7 +29,7 @@ class Game {
     }
 
     startNewGame() : void {
-        this._log = new string[]();
+        this._log = new Array<string>();
 
         this._whitePlayer.setStartPosition();
         this._blackPlayer.setStartPosition();
@@ -124,7 +124,7 @@ class Game {
         alert(message);
     }
 
-    private logPieceMove(piece: Piece, from: BoardSquare, to: BoardSquare, isCapture: bool) : void {
+    private logPieceMove(piece: Piece, from: BoardSquare, to: BoardSquare, isCapture: boolean) : void {
         var text = piece.getType();
         if (isCapture) {
             if (piece.getType() == "")

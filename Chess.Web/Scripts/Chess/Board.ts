@@ -1,4 +1,4 @@
-///<reference path='../jquery.d.ts' />
+///<reference path='../typings/jquery/jquery.d.ts' />
 ///<reference path='BoardSquare.ts' />
 
 class Board {
@@ -9,7 +9,7 @@ class Board {
 
     private _canvas: HTMLCanvasElement;
     private _context: CanvasRenderingContext2D;
-    private _squares: BoardSquare[] = new BoardSquare[]();
+    private _squares: Array<BoardSquare> = new Array<BoardSquare>();
     private _scaleRatio: number = 1;
     private _canvasSize: number;
     private _enPassantSquare: BoardSquare;
